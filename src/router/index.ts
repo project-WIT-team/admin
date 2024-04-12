@@ -8,6 +8,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'Layout',
+      redirect: '/goodsTable',//重定向
       component: Layout,
       children: [
         {
