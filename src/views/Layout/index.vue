@@ -2,23 +2,16 @@
   <div class="common-layout">
     <el-container>
       <!-- header -->
-      <el-header class="header" height="50px">
-        <div class="blank"></div>
-        <i class="iconfont icon-jishufuwu-copy"></i>
-        我是Header
-        <ul>
-          <li v-for="item in itemInHeader" :key="item.name">{{ item.name }}</li>
-        </ul>
-
+      <el-header class="header" >
+        <PageHeader></PageHeader>
       </el-header>
 
       <el-container>
         <!-- aside -->
-        <el-aside width="200px" class="aside">我是Aside
+        <el-aside width="200px" class="aside">
           <ul>
             <li v-for="item in list" :key="item.name">{{ item.name }} - {{ item.age }}</li>
           </ul>
-
         </el-aside>
         <!-- main -->
         <el-main>
@@ -35,6 +28,7 @@
 
 <script lang="ts" setup>
   import { ref } from 'vue';
+  import PageHeader from '@/components/PageHeader.vue';
 
 
   let list = [
@@ -56,7 +50,16 @@
 
 
 <style scoped>
-/* 将li里面的项横向排列 */
+
+.el-col {
+  border-radius: 10px;
+}
+
+.grid-content {
+  border-radius: 4px;
+  /* min-height: 36px; */
+  margin: 5px 0;
+}
 
 
   .header {
@@ -71,12 +74,10 @@
     vertical-align: middle;
   }
 
-  .blank {
-    margin: 10px;
-    padding: 0;
-  }
 
   .aside {
     border-right: 1px solid #ccc;
   }
+
+
 </style>
