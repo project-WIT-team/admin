@@ -7,16 +7,14 @@
       </el-header>
 
       <el-container>
-        <!-- aside -->
         <el-aside width="200px" class="aside">
           <ul>
             <li v-for="item in list" :key="item.name">{{ item.name }} - {{ item.age }}</li>
           </ul>
         </el-aside>
-        <!-- main -->
-        <el-main>
-          我是Main
 
+        <el-main>
+<router-view></router-view>
         </el-main>
       </el-container>
 
@@ -29,6 +27,7 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
   import PageHeader from '@/components/PageHeader.vue';
+  import GoodsTable from '@/components/GoodsTable.vue';
 
 
   let list = [

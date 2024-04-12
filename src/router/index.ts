@@ -8,7 +8,24 @@ const router = createRouter({
     {
       path: '/',
       name: 'Layout',
-      component: Layout
+      component: Layout,
+      children: [
+        {
+          path: 'goodsTable',
+          name: '商品列表',
+          component: () => import('@/components/GoodsTable.vue')
+        },
+        {
+          path: 'addGoods',
+          name: '添加商品',
+          component: () => import('@/components/AddGoods.vue')
+        },
+        {
+          path: 'offGoods',
+          name: '下架商品',
+          component: () => import('@/components/OffGoods.vue')
+        }
+      ]
     },
 
 
