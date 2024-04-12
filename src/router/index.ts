@@ -25,6 +25,11 @@ const router = createRouter({
           path: 'offGoods',
           name: '下架商品',
           component: () => import('@/components/OffGoods.vue')
+        },
+        {
+          path: 'test',
+          name: '测试',
+          component: () => import('@/components/test.vue')
         }
       ]
     },

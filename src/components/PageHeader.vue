@@ -19,6 +19,7 @@
     { id: 'goodsTable', name: '商品列表', },
         { id: 'addGoods', name: '添加商品', },
         { id: 'offGoods', name: '下架商品', },
+        { id: 'test', name: '测试',}
 
     ])
 </script>
