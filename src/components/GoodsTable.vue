@@ -10,10 +10,6 @@
     <el-pagination @size-change="sizeChange" @current-change="currentChange" :current-page="page" :page-size="pageSize"
         :pager-count="7" layout="prev, pager, next" :total="totalData" background>
     </el-pagination>
-
-
-
-
 </template>
 
 <script lang="ts" setup>
@@ -47,31 +43,27 @@
         pageSize.value = value
         page.value = 1
         getTableData()
-
     }
 
     function currentChange(value: number) {
         page.value = value
         getTableData()
-
     }
 
     getTableData()
 
-
-    // onMounted(() => {
-    //     getTableData()
-    // })
-
+    //todo 添加关闭颜色提醒可选项
 
 </script>
 
-<style>
+<style lang="scss">
+
+
     .el-table .warning-row {
-        --el-table-tr-bg-color: #e9644377;
+        --el-table-tr-bg-color: #{$warnColor};
     }
 
     .el-table .success-row {
-        --el-table-tr-bg-color: #35e97e22;
+        --el-table-tr-bg-color: #9fe4cd;
     }
 </style>

@@ -1,8 +1,8 @@
 <template>
-  <div class="common-layout">
+  <div>
     <el-container>
       <!-- header -->
-      <el-header class="header" >
+      <el-header class="header">
         <PageHeader></PageHeader>
       </el-header>
 
@@ -14,7 +14,7 @@
         </el-aside>
 
         <el-main>
-<router-view></router-view>
+          <router-view></router-view>
         </el-main>
       </el-container>
 
@@ -26,6 +26,7 @@
 
 <script lang="ts" setup>
   import { ref } from 'vue';
+  // import PageHeader from '@/components/PageHeader.vue';
   import PageHeader from '@/components/PageHeader.vue';
   import GoodsTable from '@/components/GoodsTable.vue';
 
@@ -50,20 +51,22 @@
 
 <style scoped>
 
-.el-col {
-  border-radius: 10px;
-}
+  .el-col {
+    border-radius: 10px;
+  }
 
-.grid-content {
-  border-radius: 4px;
-  /* min-height: 36px; */
-  margin: 5px 0;
-}
+  .grid-content {
+    border-radius: 4px;
+    /* min-height: 36px; */
+    margin: 5px 0;
+  }
 
 
   .header {
     /* 边框下面加入灰色的分割线 */
     border-bottom: 1px solid #ccc;
+    padding: 0;
+    background-color: #7ddbfe
   }
 
   .iconfont {
@@ -78,5 +81,10 @@
     border-right: 1px solid #ccc;
   }
 
+  .el-menu {
+    width: 100%;
+    height: 100%;
+
+  }
 
 </style>
