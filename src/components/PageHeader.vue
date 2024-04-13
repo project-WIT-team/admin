@@ -1,9 +1,15 @@
 <template>
-    <el-menu class="el-menu" :default-active="activeIndex" mode="horizontal" :ellipsis="false" @select="handleSelect"
-        router>
-        <el-menu-item :index="item.id" v-for="item in itemInHeader">{{ item.name }}</el-menu-item>
-        <!-- <div class="flex-grow" /> -->
-    </el-menu>
+    <el-container>
+        <el-header class="header"> <el-menu class="el-menu" :default-active="activeIndex" mode="horizontal"
+                :ellipsis="false" @select="handleSelect" router>
+                <el-menu-item :index="item.id" v-for="item in itemInHeader">{{ item.name }}</el-menu-item>
+                <!-- <div class="flex-grow" /> -->
+            </el-menu>
+        </el-header>
+    </el-container>
+
+
+
 </template>
 
 <script lang="ts" setup>
@@ -32,7 +38,12 @@
         background-color: #89f7fe;
     }
 
-
+    .header {
+        /* 边框下面加入灰色的分割线 */
+        border-bottom: 1px solid #ccc;
+        padding: 0;
+        background-color: #7ddbfe
+    }
 
 
 </style>

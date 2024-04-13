@@ -1,25 +1,19 @@
 <template>
   <div>
+
+    <!-- header -->
+    <PageHeader></PageHeader>
     <el-container>
-      <!-- header -->
-      <el-header class="header">
-        <PageHeader></PageHeader>
-      </el-header>
+      <el-aside width="150px" class="aside">
+        <ul>
+          <li v-for="item in list" :key="item.name">{{ item.name }} - {{ item.age }}</li>
+        </ul>
+      </el-aside>
 
-      <el-container>
-        <el-aside width="200px" class="aside">
-          <ul>
-            <li v-for="item in list" :key="item.name">{{ item.name }} - {{ item.age }}</li>
-          </ul>
-        </el-aside>
-
-        <el-main>
-          <router-view></router-view>
-        </el-main>
-      </el-container>
+      <!-- main -->
+      <router-view></router-view>
 
     </el-container>
-
   </div>
 </template>
 
@@ -62,12 +56,7 @@
   }
 
 
-  .header {
-    /* 边框下面加入灰色的分割线 */
-    border-bottom: 1px solid #ccc;
-    padding: 0;
-    background-color: #7ddbfe
-  }
+
 
   .iconfont {
     font-size: 15px;
