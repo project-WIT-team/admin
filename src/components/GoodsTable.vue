@@ -1,18 +1,21 @@
 <template>
-    <el-main>
-        <!-- table -->
-        <el-table :data="currentTableData" style="width: 100% " :row-class-name="colorChangeByNumber">
-            <el-table-column prop="name" label="Name" width="180" />
-            <el-table-column prop="price" label="价格" sortable width="180" />
-            <el-table-column prop="number" label="数量" sortable width="180" />
-            <el-table-column prop="date" label="Date" width="180" />
-        </el-table>
+    <el-container>
+        <el-main>
+            <!-- table -->
+            <el-table :data="currentTableData" :row-class-name="colorChangeByNumber">
+                <el-table-column prop="name" label="Name" width="180" />
+                <el-table-column prop="price" label="价格" sortable width="180" />
+                <el-table-column prop="number" label="数量" sortable width="180" />
+                <el-table-column prop="date" label="Date" width="180" />
+            </el-table>
 
-        <!-- 分页 -->
-        <el-pagination @size-change="sizeChange" @current-change="currentChange" :current-page="page"
-            :page-size="pageSize" :pager-count="7" layout="prev, pager, next" :total="totalData" background>
-        </el-pagination>
-    </el-main>
+            <!-- 分页 -->
+            <el-pagination @size-change="sizeChange" @current-change="currentChange" :current-page="page"
+                :page-size="pageSize" :pager-count="7" layout="prev, pager, next" :total="totalData" background>
+            </el-pagination>
+        </el-main>
+    </el-container>
+
 
 </template>
 
