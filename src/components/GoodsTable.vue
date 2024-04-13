@@ -1,7 +1,7 @@
 <template>
     <el-main>
         <!-- table -->
-        <el-table :data="currentTableData" style="width: 100%" :row-class-name="colorChangeByNumber">
+        <el-table :data="currentTableData" style="width: 100% " :row-class-name="colorChangeByNumber">
             <el-table-column prop="name" label="Name" width="180" />
             <el-table-column prop="price" label="价格" sortable width="180" />
             <el-table-column prop="number" label="数量" sortable width="180" />
@@ -61,6 +61,8 @@
 </script>
 
 <style lang="scss">
+
+
 
 
     .el-table .warning-row {

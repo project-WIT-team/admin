@@ -1,49 +1,38 @@
 <template>
-  <div>
 
-    <!-- header -->
-    <PageHeader></PageHeader>
-    <el-container>
-      <el-aside width="150px" class="aside">
-        <ul>
-          <li v-for="item in list" :key="item.name">{{ item.name }} - {{ item.age }}</li>
-        </ul>
-      </el-aside>
 
-      <!-- main -->
-      <router-view></router-view>
+  <!-- header -->
+  <!-- <PageHeader></PageHeader> -->
+  <el-container class="el-container">
+    <el-aside width="120px" class="aside">
+      <page-aside></page-aside>
+    </el-aside>
 
-    </el-container>
-  </div>
+    <!-- main -->
+    <router-view></router-view>
+
+  </el-container>
+
 </template>
 
 
 <script lang="ts" setup>
   import { ref } from 'vue';
-  // import PageHeader from '@/components/PageHeader.vue';
   import PageHeader from '@/components/PageHeader.vue';
   import GoodsTable from '@/components/GoodsTable.vue';
+  import PageAside from '@/components/PageAside.vue';
 
 
-  let list = [
-    { name: '张三', age: 18 },
-    { name: '李四', age: 19 },
-    { name: '王五', age: 20 },
-    { name: '赵六', age: 21 },
-    { name: '孙七', age: 22 },
-    { name: '周八', age: 23 },
-  ]
 
 
-  let itemInHeader = ref([
-    { name: '添加商品', },
-    { name: '下架商品', },
-    { name: '商品列表', },
-  ])
+
 </script>
 
 
 <style scoped>
+  .el-container {
+    height: 100vh;
+  }
 
   .el-col {
     border-radius: 10px;
@@ -70,10 +59,6 @@
     border-right: 1px solid #ccc;
   }
 
-  .el-menu {
-    width: 100%;
-    height: 100%;
 
-  }
 
 </style>
