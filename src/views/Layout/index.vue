@@ -1,13 +1,7 @@
 <template>
 
-
-  <!-- header -->
-  <!-- <PageHeader></PageHeader> -->
   <el-container class="el-container">
-
     <page-aside></page-aside>
-
-
     <!-- main -->
     <router-view></router-view>
 

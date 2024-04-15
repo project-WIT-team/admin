@@ -1,6 +1,6 @@
 <template>
     <el-table :data="currentTableData" style="width: 100%" :row-class-name="colorChangeByNumber">
-        <el-table-column type="index" width="50" />
+        <!-- <el-table-column type="index" width="50" /> -->
         <el-table-column prop="name" label="Name" width="180" />
         <el-table-column prop="price" label="价格" sortable width="180" />
         <el-table-column prop="number" label="数量" sortable width="180" />
@@ -10,9 +10,6 @@
     <!-- 分页 -->
     <el-pagination @size-change="sizeChange" @current-change="currentChange" :current-page="page" :page-size="pageSize"
         :pager-count="11" layout="prev, pager, next,total" :total="totalData" background />
-
-
-
 
 </template>
 
@@ -31,6 +28,7 @@
         }
         return ''
     }
+
     //分页功能
     let page = ref(1)
     let pageSize = ref(10)
