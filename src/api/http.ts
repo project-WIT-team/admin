@@ -3,7 +3,7 @@ import axios from "axios"
 // 创建axios实例
 const httpIns = axios.create({
     baseURL: "http://192.168.137.1:8080",
-    timeout: 15000,
+    timeout: 5000,
 })
 
 // axios请求拦截器,这个拦截器接收两个函数参数

@@ -2,25 +2,63 @@
     <div class="background">
         <form class="sign-up">
             <h1 class="sign-up-title">商城后台管理系统</h1>
-            <input type="text" class="sign-up-input" v-model="account" placeholder="请输入账号" autofocus>
-            <input type="password" class="sign-up-input" v-model="password" placeholder="请输入密码">
-            <input type="submit" value="登录" class="sign-up-button">
+            <input type="text" class="sign-up-input" v-model="data.username" placeholder="请输入账号" required autofocus>
+            <input type="password" class="sign-up-input" v-model="data.password" placeholder="请输入密码" required>
+            <button type="submit" value="登录" class="sign-up-button" @click="onSubmit">登录</button>
         </form>
-    </div>
 
+    </div>
 
 </template>
 
 
 <script lang="ts" setup>
     import { ref } from 'vue';
+    import httpIns from '@/api/http';
+    import qs from 'qs';
+    import router from '@/router';
 
-    let account = ref()
-    let password = ref()
+
+
     //将账号密码传给后端进行验证
     //当验证成功,跳转到首页
 
+    let data = ref({
+        username: '',
+        password: ''
+    })
 
+    const onSubmit = () => {
+
+        httpIns.post('/admin/login',
+            qs.stringify(data.value),
+            {
+                headers: {
+                    'Content-Type': "application/x-www-form-urlencoded"
+                }
+            }
+        ).then(res => {
+            console.log("@@@", res);
+            console.log("@@@@@", res.data.token);
+            // 将token保存到本地
+
+            localStorage.setItem('token', res.data.token)
+            if (res.data.code === 200) {
+                localStorage.setItem('token', res.data.token)
+                router.push({
+                    path: '/goodsTable',
+
+                })
+
+            }
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
+    function show() {
+        console.log(data.value.username);
+    }
 </script>
 
 

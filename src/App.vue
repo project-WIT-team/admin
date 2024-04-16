@@ -1,7 +1,5 @@
 <script setup lang="ts">
-  // import { useGoodsListStore } from './stores/goodsList';
-  // const goodsListStore = useGoodsListStore();
-  // goodsListStore.getGoodsData();
+
 </script>
 
 

@@ -12,6 +12,10 @@
 
 <script lang="ts" setup>
   import PageAside from '@/components/PageAside.vue';
+
+  import { useGoodsListStore } from '@/stores/goodsList';
+  const goodsListStore = useGoodsListStore();
+  goodsListStore.getGoodsData();
 </script>
 
 
