@@ -8,7 +8,6 @@
                 <el-table-column prop="bank" label="库存" sortable width="180" />
                 <el-table-column prop="storage" label="销量" sortable width="180" />
                 <el-table-column prop="postage" label="邮费" sortable width="180" />
-
             </el-table>
 
             <!-- 分页 -->
