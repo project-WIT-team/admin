@@ -16,7 +16,7 @@
     import { ref } from 'vue';
     import httpIns from '@/api/http';
     import qs from 'qs';
-    import router from '@/router';
+    import { useRouter } from 'vue-router';
 
 
 
@@ -27,6 +27,7 @@
         username: '',
         password: ''
     })
+    const router = useRouter()
 
     const onSubmit = () => {
 

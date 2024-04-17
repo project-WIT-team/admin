@@ -1,11 +1,28 @@
 <template>
-    <el-form :model="form" label-width="auto" style="max-width: 600px">
+    <el-form :model="form" label-width="auto" enctype="multipart/form-data" style="max-width: 600px"
+        action="http://192.168.137.1:8080">
         <el-form-item label="商品主页词条">
-            <el-input v-model="form.name" />
+            <el-input v-model="form.title" />
+        </el-form-item>
+
+        <el-form-item label="商品价格">
+            <el-input v-model="form.price" />
+        </el-form-item>
+
+        <el-form-item label="商品成本">
+            <el-input v-model="form.cost" />
+        </el-form-item>
+
+        <el-form-item label="库存量">
+            <el-input v-model="form.bank" />
+        </el-form-item>
+
+        <el-form-item label="显示位置">
+            <el-input v-model="form.place" />
         </el-form-item>
 
         <el-form-item label="类别">
-            <el-select v-model="form.class" placeholder="请选择分类">
+            <el-select v-model="form.type" placeholder="请选择分类">
                 <el-option label="手机" value="phone" />
                 <el-option label="电脑" value="computer" />
             </el-select>
@@ -15,9 +32,9 @@
             <el-input v-model="form.postage" />
         </el-form-item>
 
-        <el-upload v-model:file-list="fileList" action=" " multiple :on-preview="handlePreview"
-            :on-remove="handleRemove" :before-remove="beforeRemove" :on-exceed="handleExceed">
-            <el-button type="primary">Click to upload</el-button>
+        <el-upload v-model:file-list="fileList" multiple :on-preview="handlePreview" :on-remove="handleRemove"
+            :before-remove="beforeRemove" :on-exceed="handleExceed">
+            <el-button type="primary">上传轮播图</el-button>
             <template #tip>
                 <div class="el-upload__tip">
                     jpg/png文件大小要小于500KB.
@@ -25,34 +42,8 @@
             </template>
         </el-upload>
 
-
-        <el-form-item label="Activity type">
-            <el-checkbox-group v-model="form.type">
-                <el-checkbox value="Online activities" name="type">
-                    Online activities
-                </el-checkbox>
-                <el-checkbox value="Promotion activities" name="type">
-                    Promotion activities
-                </el-checkbox>
-                <el-checkbox value="Offline activities" name="type">
-                    Offline activities
-                </el-checkbox>
-                <el-checkbox value="Simple brand exposure" name="type">
-                    Simple brand exposure
-                </el-checkbox>
-            </el-checkbox-group>
-        </el-form-item>
-        <el-form-item label="Resources">
-            <el-radio-group v-model="form.resource">
-                <el-radio value="Sponsor">Sponsor</el-radio>
-                <el-radio value="Venue">Venue</el-radio>
-            </el-radio-group>
-        </el-form-item>
-        <el-form-item label="Activity form">
-            <el-input v-model="form.desc" type="textarea" />
-        </el-form-item>
         <el-form-item>
-            <el-button type="primary" @click="onSubmit">Create</el-button>
+            <el-button type="primary" @click="onSubmit">发送</el-button>
             <el-button>Cancel</el-button>
         </el-form-item>
     </el-form>
@@ -62,6 +53,9 @@
     import { ref, reactive } from 'vue'
     import { ElMessage, ElMessageBox } from 'element-plus'
     import type { UploadProps, UploadUserFile } from 'element-plus'
+    import httpIns from '@/api/http';
+    import qs from 'qs'
+
 
     const fileList = ref<UploadUserFile[]>([
         {
@@ -95,18 +89,37 @@
     }
 
     const form = reactive({
-        name: '',
+
+        title: '',
         class: '',
         postage: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: '',
+        description: '',
+        type: '',
+        fileList: [],
+        price: '',
+        cost: '',
+        bank: '',
+        place: ''
     })
 
     const onSubmit = () => {
-        console.log('submit!')
+
+
+        httpIns.post('/admin/addGoods',
+            qs.stringify(form),
+            {
+                headers: {
+                    'Content-Type': "application/x-www-form-urlencoded"
+                }
+            }
+        ).then(res => {
+            console.log("@@@", res);
+            if (res.data.code === 200) {
+                console.log('submit!')
+            }
+        }).catch(err => {
+            console.log(err);
+        })
     }
 
 </script>

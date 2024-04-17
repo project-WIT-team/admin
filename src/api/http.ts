@@ -3,6 +3,8 @@ import axios from "axios"
 // 创建axios实例
 const httpIns = axios.create({
     baseURL: "http://192.168.137.1:8080",
+    //ts
+    // baseURL: "http://192.168.1.106:8080",
     timeout: 5000,
 })
 
