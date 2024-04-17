@@ -32,14 +32,15 @@
             <el-input v-model="form.postage" />
         </el-form-item>
 
-        <el-upload v-model:file-list="fileList" multiple :on-preview="handlePreview" :on-remove="handleRemove"
-            :before-remove="beforeRemove" :on-exceed="handleExceed">
-            <el-button type="primary">上传轮播图</el-button>
-            <template #tip>
-                <div class="el-upload__tip">
-                    jpg/png文件大小要小于500KB.
-                </div>
-            </template>
+        <!-- 轮播图上传 -->
+        <el-upload action="http://192.168.137.1:8080/admin/uploadImg" method="post" v-model:file-list="fileList"
+            multiple :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove"
+            list-type="picture" :on-success="getData" :on-exceed="handleExceed" drag>
+            <el-icon class="el-icon--upload"><upload-filled /></el-icon>
+            <div class="el-upload__text">
+                上传轮播图:
+                拖拽图片或<em>点击上传</em>
+            </div>
         </el-upload>
 
         <el-form-item>
@@ -50,18 +51,50 @@
 </template>
 
 <script lang="ts" setup>
-    import { ref, reactive } from 'vue'
+    import { ref, reactive, onMounted } from 'vue'
     import { ElMessage, ElMessageBox } from 'element-plus'
     import type { UploadProps, UploadUserFile } from 'element-plus'
+    import { UploadFilled } from '@element-plus/icons-vue'
     import httpIns from '@/api/http';
     import qs from 'qs'
 
+    const form = reactive({
+        title: '',
+        class: '',
+        postage: '',
+        description: '',
+        type: '',
+        fileList: [],
+        price: '',
+        cost: '',
+        bank: '',
+        place: '',
+        BannerImg: [] as string[],
+        detailImg: [] as string[]
+    })
+
+
+    //向服务器发送数据
+    const onSubmit = () => {
+        httpIns.post('/admin/addGoods',
+            qs.stringify(form),
+            {
+                headers: {
+                    'Content-Type': "application/x-www-form-urlencoded"
+                }
+            }
+        ).then(res => {
+            console.log("请求res:", res);
+            if (res.data.code === 200) {
+                console.log('submit!')
+            }
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
 
     const fileList = ref<UploadUserFile[]>([
-        {
-            name: 'element-plus-logo.svg',
-            url: 'https://element-plus.org/images/element-plus-logo.svg',
-        },
     ])
 
     const handleRemove: UploadProps['onRemove'] = (file, uploadFiles) => {
@@ -73,53 +106,39 @@
     }
 
     const handleExceed: UploadProps['onExceed'] = (files, uploadFiles) => {
-        ElMessage.warning(
-            `The limit is 3, you selected ${files.length} files this time, add up to ${files.length + uploadFiles.length
-            } totally`
-        )
+        // ElMessage.warning(
+        //     `The limit is 3, you selected ${files.length} files this time, add up to ${files.length + uploadFiles.length
+        //     } totally`
+        // )
     }
 
     const beforeRemove: UploadProps['beforeRemove'] = (uploadFile, uploadFiles) => {
         return ElMessageBox.confirm(
-            `Cancel the transfer of ${uploadFile.name} ?`
+            `是否取消上传 ${uploadFile.name} ?`
         ).then(
             () => true,
             () => false
         )
     }
 
-    const form = reactive({
 
-        title: '',
-        class: '',
-        postage: '',
-        description: '',
-        type: '',
-        fileList: [],
-        price: '',
-        cost: '',
-        bank: '',
-        place: ''
-    })
+    const getData = (response: any, file: UploadUserFile, fileList: UploadUserFile[]) => {
+        // 服务器返回的响应保存在 response 参数中
+        console.log("response", response.data.imgPath);
+        //将后端返回的图片路径保存到imgPath中
+        form.BannerImg.push(response.data.imgPath)
 
-    const onSubmit = () => {
+        // // 上传的文件保存在 file 参数中
+        // console.log("file:", file);
 
+        // // 所有已上传的文件列表保存在 fileList 参数中
+        // console.log("fileList:", fileList);
 
-        httpIns.post('/admin/addGoods',
-            qs.stringify(form),
-            {
-                headers: {
-                    'Content-Type': "application/x-www-form-urlencoded"
-                }
-            }
-        ).then(res => {
-            console.log("@@@", res);
-            if (res.data.code === 200) {
-                console.log('submit!')
-            }
-        }).catch(err => {
-            console.log(err);
-        })
-    }
+    };
 
+    // onMounted(() => {
+    //     setInterval(() => {
+    //         console.log(form.imgPath);
+    //     }, 5000);  // 每隔十秒打印一次
+    // });
 </script>

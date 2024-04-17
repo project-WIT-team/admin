@@ -3,14 +3,11 @@
         <el-main>
             <!-- table -->
             <el-table :data="currentTableData" :row-class-name="colorChangeByNumber">
-                <el-table-column prop="name" label="Name" width="180" />
+                <el-table-column prop="title" label="名称" width="180" />
                 <el-table-column prop="price" label="价格" sortable width="180" />
-                <el-table-column prop="number" label="数量" sortable width="180" />
-                <el-table-column prop="date" label="Date" width="180" />
-                <el-table-column prop="date" label="Date" width="180" />
-                <el-table-column prop="class" label="商品类别" width="180" />
-                <el-table-column prop="soldNumber" label="销量" width="180" />
-                <el-table-column prop="description" label="商品主页描述" width="300" />
+                <el-table-column prop="bank" label="库存" sortable width="180" />
+                <el-table-column prop="storage" label="销量" sortable width="180" />
+                <el-table-column prop="postage" label="邮费" sortable width="180" />
 
             </el-table>
 
@@ -25,16 +22,16 @@
 </template>
 
 <script lang="ts" setup>
-    import type Goods from '@/interface/goods';
-    import { useGoodsStore } from '../stores/goodsData';
+    import type Goods from '@/interface/goods'
+    import { useGoodsListStore } from '@/stores/goodsList';
     import { ref } from 'vue';
-    let goodsStore = useGoodsStore()
+    const goodsStore = useGoodsListStore()
 
     //颜色提醒功能
     const colorChangeByNumber = (params: { row: Goods }) => {
-        if (params.row.number < 100) {
+        if (params.row.storage < 100) {
             return 'warning-row'
-        } else if (params.row.number > 1000) {
+        } else if (params.row.storage > 2000) {
             return 'success-row'
         }
         return ''
@@ -47,8 +44,8 @@
     let currentTableData = ref();//一面的数据
     //获取表格数据,自动分页
     function getTableData() {
-        currentTableData.value = goodsStore.tableData.slice((page.value - 1) * pageSize.value, page.value * pageSize.value)
-        totalData.value = goodsStore.tableData.length
+        currentTableData.value = goodsStore.goodsList.slice((page.value - 1) * pageSize.value, page.value * pageSize.value)
+        totalData.value = goodsStore.goodsList.length
         console.log("当前页数据信息:", currentTableData.value);
     }
 
