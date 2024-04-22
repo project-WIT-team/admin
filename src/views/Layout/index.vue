@@ -1,9 +1,5 @@
 <template>
 
-
-
-
-
   <el-container>
     <el-header height="50px" class="header"> <page-navigation></page-navigation> </el-header>
     <el-container>
@@ -12,20 +8,14 @@
     </el-container>
   </el-container>
 
-
-
-
-
-
 </template>
 
 
 <script lang="ts" setup>
 
-  import PageNavigation from '@/components/PageNavigation.vue';
-  import PageAside from '@/components/PageAside.vue';
 
-
+  import PageAside from '@/components/layout/PageAside.vue';
+  import PageNavigation from '@/components/layout/PageNavigation.vue';
   import { useGoodsListStore } from '@/stores/goodsList';
   const goodsListStore = useGoodsListStore();
   goodsListStore.getGoodsData();

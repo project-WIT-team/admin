@@ -1,6 +1,8 @@
 import axios from "axios"
 import { ElMessage } from "element-plus"
 import "element-plus/theme-chalk/el-message.css"
+import router from "@/router"
+import { useUserStore } from "@/stores/user"
 
 // 创建axios实例
 const httpIns = axios.create({
@@ -14,7 +16,6 @@ const httpIns = axios.create({
 // 第一个函数用于处理请求配置，第二个函数用于处理请求错误
 httpIns.interceptors.request.use(
     (config) => {
-        console.log(config)
         return config //相应的数据
     },
 
@@ -30,6 +31,13 @@ httpIns.interceptors.response.use(
             type: "error",
             message: e.message || "未知错误",
         })
+        //401token失效处理
+        if (e.response.status === 401) {
+            const userStore = useUserStore()
+            userStore.clearUserInfo()
+            router.push("/login")
+        }
+
         return Promise.reject(e)
     }
 )
