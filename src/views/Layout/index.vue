@@ -1,17 +1,30 @@
 <template>
 
-  <el-container class="el-container">
-    <page-aside></page-aside>
-    <!-- main -->
-    <router-view></router-view>
 
+
+
+
+  <el-container>
+    <el-header height="50px" class="header"> <page-navigation></page-navigation> </el-header>
+    <el-container>
+      <el-aside width="200px"><page-aside></page-aside></el-aside>
+      <el-main><router-view></router-view></el-main>
+    </el-container>
   </el-container>
+
+
+
+
+
 
 </template>
 
 
 <script lang="ts" setup>
+
+  import PageNavigation from '@/components/PageNavigation.vue';
   import PageAside from '@/components/PageAside.vue';
+
 
   import { useGoodsListStore } from '@/stores/goodsList';
   const goodsListStore = useGoodsListStore();
@@ -20,14 +33,16 @@
 
 
 <style scoped>
+  .header {
+    padding: 0;
+  }
+
   .el-container {
     height: 100vh;
 
   }
 
-  .aside {
-    border-right: 1px solid #ccc;
-  }
+
 
 
 

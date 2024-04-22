@@ -1,4 +1,6 @@
 import axios from "axios"
+import { ElMessage } from "element-plus"
+import "element-plus/theme-chalk/el-message.css"
 
 // 创建axios实例
 const httpIns = axios.create({
@@ -24,6 +26,10 @@ httpIns.interceptors.request.use(
 httpIns.interceptors.response.use(
     (res) => res.data,
     (e) => {
+        ElMessage({
+            type: "error",
+            message: e.message || "未知错误",
+        })
         return Promise.reject(e)
     }
 )

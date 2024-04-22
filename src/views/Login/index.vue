@@ -1,11 +1,22 @@
 <template>
     <div class="background">
-        <form class="sign-up">
+        <!-- <form ref="formRef" class="sign-up">
             <h1 class="sign-up-title">商城后台管理系统</h1>
             <input type="text" class="sign-up-input" v-model="data.username" placeholder="请输入账号" required autofocus>
             <input type="password" class="sign-up-input" v-model="data.password" placeholder="请输入密码" required>
             <button type="submit" value="登录" class="sign-up-button" @click="onSubmit">登录</button>
-        </form>
+        </form> -->
+
+        <el-form ref="formRef" class="sign-up" :model="data" :rules="rules" status-icon>
+            <h1 class="sign-up-title">商城后台管理系统</h1>
+            <el-form-item prop="username" label="账户">
+                <el-input v-model="data.username" />
+            </el-form-item>
+            <el-form-item prop="password" label="密码">
+                <el-input v-model="data.password" />
+            </el-form-item>
+            <el-button size="large" class="sign-up-button" @click="doLogin()">点击登录</el-button>
+        </el-form>
 
     </div>
 
@@ -13,52 +24,90 @@
 
 
 <script lang="ts" setup>
-    import { ref } from 'vue';
-    import httpIns from '@/api/http';
-    import qs from 'qs';
-    import { useRouter } from 'vue-router';
-
+    import { reactive, ref } from 'vue';
+    import { ElMessage } from 'element-plus'
+    import 'element-plus/theme-chalk/el-message.css'
+    import { loginAPI } from '@/api/user'
+    import { useRouter } from 'vue-router'
+    import { useUserStore } from '@/stores/user';
 
 
     //将账号密码传给后端进行验证
     //当验证成功,跳转到首页
-
-    let data = ref({
-        username: '',
-        password: ''
+    let data = reactive({
+        username: 'admin',
+        password: '123456'
     })
     const router = useRouter()
 
-    const onSubmit = () => {
+    // const onSubmit = () => {
 
-        httpIns.post('/admin/login',
-            qs.stringify(data.value),
-            {
-                headers: {
-                    'Content-Type': "application/x-www-form-urlencoded"
-                }
+    //     httpIns.post('/admin/login',
+    //         qs.stringify(data),
+    //         {
+    //             headers: {
+    //                 'Content-Type': "application/x-www-form-urlencoded"
+    //             }
+    //         }
+    //     ).then(res => {
+    //         if (res.data.code === 200) {
+    //             router.push({
+    //                 path: '/',
+    //             })
+
+    //         }
+    //     }).catch(err => {
+    //         console.log(err);
+    //     })
+    // }
+
+
+    // const onSubmit = async () => {
+    //     try {
+    //         const res = await loginAPI(data);
+    //         // console.log("res:", res);
+    //         // console.log("res.data.token:", res.data.token);
+
+
+    //         if (res.data.code === 200) {
+    //             localStorage.setItem('token', res.data.token)//将token保存到本地
+    //             router.push({
+    //                 path: '/',//跳转到首页
+    //             })
+    //         }
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // }
+
+    const formRef = ref()
+    const userStore = useUserStore()
+    const doLogin = () => {
+        const { username, password } = data
+        //调用表单组件实例formRef内的方法,只有当表单数据都通过时,才会执行回调函数
+        // valid: 所有表单都通过校验  才为true
+        formRef.value.validate(async (valid: any) => {
+            if (valid) {
+                // 调用接口获取用户信息
+                await userStore.getUserInfo({ username, password })
+
+                ElMessage({ type: 'success', message: '登录成功' })
+                // 跳转首页
+                router.replace({ path: '/' })
             }
-        ).then(res => {
-            console.log("@@@", res);
-            console.log("@@@@@", res.data.token);
-            // 将token保存到本地
-
-            localStorage.setItem('token', res.data.token)
-            if (res.data.code === 200) {
-                localStorage.setItem('token', res.data.token)
-                router.push({
-                    path: '/goodsTable',
-
-                })
-
-            }
-        }).catch(err => {
-            console.log(err);
         })
     }
 
-    function show() {
-        console.log(data.value.username);
+
+    // 规则数据对象
+    const rules = {
+        username: [
+            { required: true, message: '用户名不能为空' }
+        ],
+        password: [
+            { required: true, message: '密码不能为空' },
+            { min: 6, max: 14, message: '密码长度要求6-14个字符' }
+        ]
     }
 </script>
 

@@ -1,23 +1,18 @@
 <template>
-    <el-container>
-        <el-main>
-            <!-- table -->
-            <el-table :data="currentTableData" :row-class-name="colorChangeByNumber">
-                <el-table-column prop="title" label="名称" width="180" />
-                <el-table-column prop="price" label="价格" sortable width="180" />
-                <el-table-column prop="bank" label="库存" sortable width="180" />
-                <el-table-column prop="storage" label="销量" sortable width="180" />
-                <el-table-column prop="postage" label="邮费" sortable width="180" />
-            </el-table>
-
-            <!-- 分页 -->
-            <el-pagination @size-change="sizeChange" @current-change="currentChange" :current-page="page"
-                :page-size="pageSize" :pager-count="7" layout="prev, pager, next" :total="totalData" background>
-            </el-pagination>
-        </el-main>
-    </el-container>
-
-
+    <!-- table -->
+    <div class="centered-content">
+        <el-table :data="currentTableData" :row-class-name="colorChangeByNumber">
+            <el-table-column prop="title" label="名称" width="180" />
+            <el-table-column prop="price" label="价格" sortable width="180" />
+            <el-table-column prop="bank" label="库存" sortable width="180" />
+            <el-table-column prop="storage" label="销量" sortable width="180" />
+            <el-table-column prop="postage" label="邮费" sortable width="180" />
+        </el-table>
+        <!-- 分页 -->
+        <el-pagination @size-change="sizeChange" @current-change="currentChange" :current-page="page"
+            :page-size="pageSize" :pager-count="7" layout="prev, pager, next" :total="totalData" background>
+        </el-pagination>
+    </div>
 </template>
 
 <script lang="ts" setup>
@@ -38,7 +33,7 @@
 
     //分页功能
     let page = ref(1)//当前页
-    let pageSize = ref(10)//每页显示的数据量
+    let pageSize = ref(10)//每页显示的数目
     let totalData = ref()//数据总数
     let currentTableData = ref();//一面的数据
     //获取表格数据,自动分页
