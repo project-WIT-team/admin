@@ -4,7 +4,7 @@
     const userStore = useUserStore();
 
     const confirm = () => {
-        userStore.clearuserInfo();
+        userStore.clearUserInfo();
         router.push('/login');
     }
 </script>

@@ -1,6 +1,5 @@
 <template>
-    <el-form :model="form" label-width="auto" enctype="multipart/form-data" style="max-width: 600px"
-        action="http://192.168.137.1:8080">
+    <el-form :model="form" label-width="auto" enctype="multipart/form-data" style="max-width: 600px">
         <el-form-item label="商品主页词条">
             <el-input v-model="form.title" />
         </el-form-item>

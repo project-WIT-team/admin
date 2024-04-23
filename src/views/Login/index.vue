@@ -88,7 +88,7 @@
         formRef.value.validate(async (valid: any) => {
             if (valid) {
                 // 调用接口获取用户信息
-                await userStore.getuserInfo({ username, password })
+                await userStore.getUserInfo({ username, password })
 
                 ElMessage({ type: 'success', message: '登录成功' })
                 // 跳转首页

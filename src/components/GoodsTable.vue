@@ -2,10 +2,12 @@
     <!-- table -->
     <div class="centered-content">
         <el-table :data="currentTableData" :row-class-name="colorChangeByNumber">
-            <el-table-column prop="title" label="名称" width="180" />
-            <el-table-column prop="price" label="价格" sortable width="180" />
-            <el-table-column prop="bank" label="库存" sortable width="180" />
-            <el-table-column prop="storage" label="销量" sortable width="180" />
+            <el-table-column prop="id" label="id" width="50" />
+            <el-table-column prop="title" label="名称" width="200"
+                :formatter="(row: Goods) => (row.title.length > 26 ? row.title.substr(0, 26) + '...' : row.title)" />
+            <el-table-column prop="price" label="价格" sortable width="90" />
+            <el-table-column prop="bank" label="库存" sortable width="90" />
+            <el-table-column prop="storage" label="销量" sortable width="90" />
             <el-table-column prop="postage" label="邮费" sortable width="180" />
         </el-table>
         <!-- 分页 -->
@@ -33,7 +35,7 @@
 
     //分页功能
     let page = ref(1)//当前页
-    let pageSize = ref(10)//每页显示的数目
+    let pageSize = ref(12)//每页显示的数目
     let totalData = ref()//数据总数
     let currentTableData = ref();//一面的数据
     //获取表格数据,自动分页

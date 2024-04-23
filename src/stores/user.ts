@@ -1,4 +1,6 @@
 // 管理用户数据
+// 1.token
+
 import { defineStore } from "pinia"
 import { ref } from "vue"
 import { loginAPI } from "@/api/user"
@@ -8,7 +10,7 @@ export const useUserStore = defineStore(
     () => {
         const userInfo = ref()
 
-        const getuserInfo = async ({
+        const getUserInfo = async ({
             username,
             password,
         }: {
@@ -19,13 +21,13 @@ export const useUserStore = defineStore(
             userInfo.value = res.data
         }
 
-        const clearuserInfo = () => {
+        const clearUserInfo = () => {
             userInfo.value = null
         }
 
         return {
-            clearuserInfo,
-            getuserInfo,
+            clearUserInfo,
+            getUserInfo,
             userInfo,
         }
     },

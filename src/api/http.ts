@@ -42,7 +42,7 @@ httpIns.interceptors.response.use(
         //401token失效处理
         if (e.response.status === 401) {
             const userStore = useUserStore()
-            userStore.clearuserInfo()
+            userStore.clearUserInfo()
             router.push("/login")
         }
 

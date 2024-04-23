@@ -6,7 +6,7 @@ const router = createRouter({
     routes: [
         {
             path: "/",
-            name: "Layout",
+            name: "首页",
             redirect: "/goodsTable", //重定向
             component: Layout,
             children: [
@@ -25,6 +25,12 @@ const router = createRouter({
                     name: "下架商品",
                     component: () => import("@/components/OffGoods.vue"),
                 },
+                {
+                    path: "order",
+                    name: "订单列表",
+                    component: () => import("@/components/order.vue"),
+                },
+
                 {
                     path: "test",
                     name: "测试",

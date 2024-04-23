@@ -3,7 +3,6 @@
     <el-header class="header"> <el-menu class="el-menu" :default-active="activeIndex" mode="vertical" :ellipsis="false"
             @select="handleSelect" router>
             <el-menu-item :index="item.id" v-for="item in itemInHeader" class="item">{{ item.name }}</el-menu-item>
-
         </el-menu>
     </el-header>
 </template>
@@ -20,7 +19,8 @@
         { id: 'goodsTable', name: '商品列表', },
         { id: 'addGoods', name: '添加商品', },
         { id: 'offGoods', name: '下架商品', },
-        { id: 'test', name: '测试', }
+        { id: 'test', name: '测试', },
+        { id: 'order', name: '订单', }
 
     ])
 </script>
