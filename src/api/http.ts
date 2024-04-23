@@ -6,7 +6,7 @@ import { useUserStore } from "@/stores/user"
 
 // 创建axios实例
 const httpIns = axios.create({
-    baseURL: "http://192.168.137.1:8080",
+    baseURL: "http://192.168.137.1:8080/admin",
     //ts
     // baseURL: "http://192.168.1.106:8080",
     timeout: 5000,
@@ -16,10 +16,18 @@ const httpIns = axios.create({
 // 第一个函数用于处理请求配置，第二个函数用于处理请求错误
 httpIns.interceptors.request.use(
     (config) => {
-        return config //相应的数据
+        // 1. 从pinia获取token数据
+        const userStore = useUserStore()
+
+        // 2. 判断是否有token数据，如果有就添加到请求头
+        if (userStore.userToken) {
+            config.headers.Authorization = userStore.userToken.token
+        }
+
+        return config
     },
 
-    (e) => Promise.reject(e) //错误
+    (e) => Promise.reject(e)
 )
 
 // axios响应式拦截器,这个拦截器也接收两个函数参数，
@@ -34,7 +42,7 @@ httpIns.interceptors.response.use(
         //401token失效处理
         if (e.response.status === 401) {
             const userStore = useUserStore()
-            userStore.clearUserInfo()
+            userStore.clearuserToken()
             router.push("/login")
         }
 

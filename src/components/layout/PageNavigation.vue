@@ -1,9 +1,11 @@
 <script lang="ts" setup>
     import { useUserStore } from '@/stores/user';
+    import router from '@/router';
     const userStore = useUserStore();
 
     const confirm = () => {
-        userStore.clearUserInfo();
+        userStore.clearuserToken();
+        router.push('/login');
     }
 </script>
 
@@ -12,19 +14,15 @@
         <div class="container">
             <ul>
                 <!-- 条件渲染,登陆状态 -->
-                <template v-if="userStore.userInfo">
-                    <li><a href="javascript:;">{{ userStore.userInfo.username }}</a>
-                    </li>
+                <template v-if="userStore.userToken">
                     <li>
                         <el-popconfirm title="确认退出吗?" @confirm="confirm()" confirm-button-text="确认"
                             cancel-button-text="取消">
                             <template #reference>
-                                <a href="javascript:;">退出登录</a>
+                                <a href="javascript:;" @click="$router.push('/login')">退出登录</a>
                             </template>
                         </el-popconfirm>
                     </li>
-                    <li><a href="javascript:;">我的订单</a></li>
-                    <li><a href="javascript:;">会员中心</a></li>
                 </template>
                 <!-- 未登陆状态 -->
                 <template v-else>

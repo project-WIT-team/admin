@@ -6,9 +6,9 @@ import { loginAPI } from "@/api/user"
 export const useUserStore = defineStore(
     "user",
     () => {
-        const userInfo = ref()
+        const userToken = ref()
 
-        const getUserInfo = async ({
+        const getuserToken = async ({
             username,
             password,
         }: {
@@ -16,17 +16,17 @@ export const useUserStore = defineStore(
             password: string
         }) => {
             const res = await loginAPI({ username, password })
-            userInfo.value = res.data
+            userToken.value = res.data
         }
 
-        const clearUserInfo = () => {
-            userInfo.value = null
+        const clearuserToken = () => {
+            userToken.value = null
         }
 
         return {
-            clearUserInfo,
-            getUserInfo,
-            userInfo,
+            clearuserToken,
+            getuserToken,
+            userToken,
         }
     },
     {

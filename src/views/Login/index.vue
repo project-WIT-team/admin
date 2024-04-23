@@ -24,12 +24,11 @@
 
 
 <script lang="ts" setup>
-    import { reactive, ref } from 'vue';
+    import { reactive, ref } from 'vue'
     import { ElMessage } from 'element-plus'
     import 'element-plus/theme-chalk/el-message.css'
-    import { loginAPI } from '@/api/user'
     import { useRouter } from 'vue-router'
-    import { useUserStore } from '@/stores/user';
+    import { useUserStore } from '@/stores/user'
 
 
     //将账号密码传给后端进行验证
@@ -89,7 +88,7 @@
         formRef.value.validate(async (valid: any) => {
             if (valid) {
                 // 调用接口获取用户信息
-                await userStore.getUserInfo({ username, password })
+                await userStore.getuserToken({ username, password })
 
                 ElMessage({ type: 'success', message: '登录成功' })
                 // 跳转首页

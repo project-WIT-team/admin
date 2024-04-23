@@ -9,7 +9,7 @@ export const loginAPI = ({
     password: string
 }) => {
     return httpIns({
-        url: "/admin/login",
+        url: "/login",
         method: "post",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         data: qs.stringify({

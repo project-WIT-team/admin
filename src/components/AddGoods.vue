@@ -33,9 +33,10 @@
         </el-form-item>
 
         <!-- 轮播图上传 -->
-        <el-upload action="http://192.168.137.1:8080/admin/uploadImg" method="post" v-model:file-list="fileList"
-            multiple :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove"
-            list-type="picture" :on-success="getData" :on-exceed="handleExceed" drag>
+        <el-upload action="http://192.168.137.1:8080/admin/uploadImg"
+            :headers="{ 'Authorization': userStore.userToken.token }" method="post" v-model:file-list="file" multiple
+            :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" list-type="picture"
+            :on-success="getData" :on-exceed="handleExceed" drag>
             <el-icon class="el-icon--upload"><upload-filled /></el-icon>
             <div class="el-upload__text">
                 上传轮播图:
@@ -51,12 +52,14 @@
 </template>
 
 <script lang="ts" setup>
-    import { ref, reactive, onMounted } from 'vue'
-    import { ElMessage, ElMessageBox } from 'element-plus'
+    import { ref, reactive } from 'vue'
+    import { ElMessageBox } from 'element-plus'
     import type { UploadProps, UploadUserFile } from 'element-plus'
     import { UploadFilled } from '@element-plus/icons-vue'
     import httpIns from '@/api/http';
     import qs from 'qs'
+    import { useUserStore } from '@/stores/user';
+    const userStore = useUserStore();
 
     const form = reactive({
         title: '',
@@ -78,11 +81,11 @@
     const onSubmit = () => {
         httpIns.post('/admin/addGoods',
             qs.stringify(form),
-            {
-                headers: {
-                    'Content-Type': "application/x-www-form-urlencoded"
-                }
-            }
+            // {
+            //     headers: {
+            //         'Content-Type': "application/x-www-form-urlencoded"
+            //     }
+            // }
         ).then(res => {
             console.log("请求res:", res);
             if (res.data.code === 200) {
@@ -94,7 +97,7 @@
     }
 
 
-    const fileList = ref<UploadUserFile[]>([
+    const file = ref<UploadUserFile[]>([
     ])
 
     const handleRemove: UploadProps['onRemove'] = (file, uploadFiles) => {
@@ -106,10 +109,6 @@
     }
 
     const handleExceed: UploadProps['onExceed'] = (files, uploadFiles) => {
-        // ElMessage.warning(
-        //     `The limit is 3, you selected ${files.length} files this time, add up to ${files.length + uploadFiles.length
-        //     } totally`
-        // )
     }
 
     const beforeRemove: UploadProps['beforeRemove'] = (uploadFile, uploadFiles) => {
