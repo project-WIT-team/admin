@@ -1,4 +1,4 @@
-// 管理用户数据相关
+// 管理用户数据
 import { defineStore } from "pinia"
 import { ref } from "vue"
 import { loginAPI } from "@/api/user"
@@ -6,9 +6,9 @@ import { loginAPI } from "@/api/user"
 export const useUserStore = defineStore(
     "user",
     () => {
-        const userToken = ref()
+        const userInfo = ref()
 
-        const getuserToken = async ({
+        const getuserInfo = async ({
             username,
             password,
         }: {
@@ -16,17 +16,17 @@ export const useUserStore = defineStore(
             password: string
         }) => {
             const res = await loginAPI({ username, password })
-            userToken.value = res.data
+            userInfo.value = res.data
         }
 
-        const clearuserToken = () => {
-            userToken.value = null
+        const clearuserInfo = () => {
+            userInfo.value = null
         }
 
         return {
-            clearuserToken,
-            getuserToken,
-            userToken,
+            clearuserInfo,
+            getuserInfo,
+            userInfo,
         }
     },
     {

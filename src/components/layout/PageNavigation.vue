@@ -4,7 +4,7 @@
     const userStore = useUserStore();
 
     const confirm = () => {
-        userStore.clearuserToken();
+        userStore.clearuserInfo();
         router.push('/login');
     }
 </script>
@@ -14,7 +14,7 @@
         <div class="container">
             <ul>
                 <!-- 条件渲染,登陆状态 -->
-                <template v-if="userStore.userToken">
+                <template v-if="userStore.userInfo">
                     <li>
                         <el-popconfirm title="确认退出吗?" @confirm="confirm()" confirm-button-text="确认"
                             cancel-button-text="取消">

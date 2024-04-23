@@ -20,8 +20,8 @@ httpIns.interceptors.request.use(
         const userStore = useUserStore()
 
         // 2. 判断是否有token数据，如果有就添加到请求头
-        if (userStore.userToken) {
-            config.headers.Authorization = userStore.userToken.token
+        if (userStore.userInfo) {
+            config.headers.Authorization = userStore.userInfo.token
         }
 
         return config
@@ -42,7 +42,7 @@ httpIns.interceptors.response.use(
         //401token失效处理
         if (e.response.status === 401) {
             const userStore = useUserStore()
-            userStore.clearuserToken()
+            userStore.clearuserInfo()
             router.push("/login")
         }
 

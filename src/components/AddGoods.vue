@@ -13,6 +13,10 @@
             <el-input v-model="form.cost" />
         </el-form-item>
 
+        <el-form-item label="版本">
+            <el-input v-model="form.type" />
+        </el-form-item>
+
         <el-form-item label="库存量">
             <el-input v-model="form.bank" />
         </el-form-item>
@@ -31,12 +35,11 @@
         <el-form-item label="邮费(为0时自动包邮)">
             <el-input v-model="form.postage" />
         </el-form-item>
-
+        I
         <!-- 轮播图上传 -->
         <el-upload action="http://192.168.137.1:8080/admin/uploadImg"
-            :headers="{ 'Authorization': userStore.userToken.token }" method="post" v-model:file-list="file" multiple
-            :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" list-type="picture"
-            :on-success="getData" :on-exceed="handleExceed" drag>
+            :headers="{ 'Authorization': userStore.userInfo.token }" method="post" v-model:file-list="file" multiple
+            list-type="picture" :on-success="getData" drag>
             <el-icon class="el-icon--upload"><upload-filled /></el-icon>
             <div class="el-upload__text">
                 上传轮播图:
@@ -63,23 +66,19 @@
 
     const form = reactive({
         title: '',
-        class: '',
         postage: '',
-        description: '',
-        type: '',
-        fileList: [],
+        type: '',//分类
         price: '',
         cost: '',
         bank: '',
         place: '',
         BannerImg: [] as string[],
-        detailImg: [] as string[]
+        detailImg: [] as string[],
     })
-
 
     //向服务器发送数据
     const onSubmit = () => {
-        httpIns.post('/admin/addGoods',
+        httpIns.post('/addGoods',
             qs.stringify(form),
             // {
             //     headers: {
@@ -100,16 +99,7 @@
     const file = ref<UploadUserFile[]>([
     ])
 
-    const handleRemove: UploadProps['onRemove'] = (file, uploadFiles) => {
-        console.log(file, uploadFiles)
-    }
 
-    const handlePreview: UploadProps['onPreview'] = (uploadFile) => {
-        console.log(uploadFile)
-    }
-
-    const handleExceed: UploadProps['onExceed'] = (files, uploadFiles) => {
-    }
 
     const beforeRemove: UploadProps['beforeRemove'] = (uploadFile, uploadFiles) => {
         return ElMessageBox.confirm(
@@ -126,6 +116,8 @@
         console.log("response", response.data.imgPath);
         //将后端返回的图片路径保存到imgPath中
         form.BannerImg.push(response.data.imgPath)
+
+        console.log("form.BannerImg:", form.BannerImg);
 
         // // 上传的文件保存在 file 参数中
         // console.log("file:", file);
