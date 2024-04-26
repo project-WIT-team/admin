@@ -36,12 +36,24 @@
         </el-form-item>
         I
         <!-- 轮播图上传 -->
-        <el-upload action="http://192.168.137.1:8080/admin/uploadImg"
+        <el-upload :action="httpIns.defaults.baseURL + '/uploadImg'"
             :headers="{ 'Authorization': userStore.userInfo.token }" method="post" v-model:file-list="file" multiple
-            list-type="picture" :on-success="getData" drag>
+            list-type="picture" :on-success="getBannerData" drag>
             <el-icon class="el-icon--upload"><upload-filled /></el-icon>
             <div class="el-upload__text">
                 上传轮播图:
+                拖拽图片或<em>点击上传</em>
+            </div>
+        </el-upload>
+
+
+        <!-- 详情图上传 -->
+        <el-upload :action="httpIns.defaults.baseURL + '/uploadImg'"
+            :headers="{ 'Authorization': userStore.userInfo.token }" method="post" v-model:file-list="file" multiple
+            list-type="picture" :on-success="getDetailData" drag>
+            <el-icon class="el-icon--upload"><upload-filled /></el-icon>
+            <div class="el-upload__text">
+                上传详情图:
                 拖拽图片或<em>点击上传</em>
             </div>
         </el-upload>
@@ -79,11 +91,6 @@
     const onSubmit = () => {
         httpIns.post('/addGoods',
             qs.stringify(form),
-            // {
-            //     headers: {
-            //         'Content-Type': "application/x-www-form-urlencoded"
-            //     }
-            // }
         ).then(res => {
             console.log("请求res:", res);
             if (res.data.code === 200) {
@@ -110,25 +117,17 @@
     }
 
 
-    const getData = (response: any, file: UploadUserFile, fileList: UploadUserFile[]) => {
+    const getBannerData = (response: any, file: UploadUserFile, fileList: UploadUserFile[]) => {
         // 服务器返回的响应保存在 response 参数中
         console.log("response", response.data.imgPath);
         //将后端返回的图片路径保存到imgPath中
         form.BannerImg.push(response.data.imgPath)
-
         console.log("form.BannerImg:", form.BannerImg);
-
-        // // 上传的文件保存在 file 参数中
-        // console.log("file:", file);
-
-        // // 所有已上传的文件列表保存在 fileList 参数中
-        // console.log("fileList:", fileList);
-
     };
 
-    // onMounted(() => {
-    //     setInterval(() => {
-    //         console.log(form.imgPath);
-    //     }, 5000);  // 每隔十秒打印一次
-    // });
+    const getDetailData = (response: any, file: UploadUserFile, fileList: UploadUserFile[]) => {
+        //将后端返回的图片路径保存到imgPath中
+        form.detailImg.push(response.data.imgPath)
+        console.log("form.detailImg:", form.detailImg);
+    };
 </script>

@@ -4,7 +4,7 @@
         <el-table :data="currentTableData" :row-class-name="colorChangeByNumber">
             <el-table-column prop="id" label="id" width="50" />
             <el-table-column prop="title" label="名称" width="200"
-                :formatter="(row: Goods) => (row.title.length > 26 ? row.title.substr(0, 26) + '...' : row.title)" />
+                :formatter="(row: Goods) => (row.title.length > 26 ? row.title.substring(0, 26) + '...' : row.title)" />
             <el-table-column prop="price" label="价格" sortable width="90" />
             <el-table-column prop="bank" label="库存" sortable width="90" />
             <el-table-column prop="storage" label="销量" sortable width="90" />
@@ -14,6 +14,7 @@
         <el-pagination @size-change="sizeChange" @current-change="currentChange" :current-page="page"
             :page-size="pageSize" :pager-count="7" layout="prev, pager, next" :total="totalData" background>
         </el-pagination>
+
     </div>
 </template>
 
@@ -64,7 +65,9 @@
 
 <style lang="scss">
 
-
+    .centered-content {
+        display: flex
+    }
 
 
     .el-table .warning-row {

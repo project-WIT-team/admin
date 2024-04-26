@@ -6,9 +6,9 @@ import { useUserStore } from "@/stores/user"
 
 // 创建axios实例
 const httpIns = axios.create({
-    baseURL: "http://192.168.137.1:8080/admin",
-    //ts
-    // baseURL: "http://192.168.1.106:8080",
+    baseURL: "http://8.149.133.241:5868/admin",
+
+    // baseURL: "http://localhost:8080/admin",
     timeout: 5000,
 })
 

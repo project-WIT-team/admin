@@ -13,21 +13,6 @@
             <el-table-column prop="deliveryMethod" label="快递方式" width="110" />
             <el-table-column prop="status" label="状态" width="100" />
 
-
-            <!--             id: 1,
-                title: "商品1",
-                price: 100,
-                gid: 1,
-                uid: 1,
-                num: 1,
-                address: "北京",
-                createTime: "2021-10-01",
-                payTime: "2021-10-02",
-                deliveryTime: "2021-10-03",
-                confirmTime: "2021-10-04",
-                deliveryMethod: "顺丰",
-                status: 0, -->
-
         </el-table>
         <!-- 分页 -->
         <el-pagination @size-change="sizeChange" @current-change="currentChange" :current-page="page"
