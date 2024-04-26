@@ -15,20 +15,11 @@
             <ul>
                 <!-- 条件渲染,登陆状态 -->
                 <template v-if="userStore.userInfo">
-                    <!-- <li>
+                    <li class="no-bullet">
                         <el-popconfirm title="确认退出吗?" @confirm="confirm()" confirm-button-text="确认"
                             cancel-button-text="取消">
                             <template #reference>
-                                <a href="javascript:;" @click="$router.push('/login')">退出登录</a>
-                            </template>
-</el-popconfirm>
-</li> -->
-
-                    <li>
-                        <el-popconfirm title="确认退出吗?" @confirm="confirm()" confirm-button-text="确认"
-                            cancel-button-text="取消">
-                            <template #reference>
-                                <a href="javascript:;">退出登录</a>
+                                <a href="javascript:;" class="no-underline">退出登录</a>
                             </template>
                         </el-popconfirm>
                     </li>
@@ -41,12 +32,18 @@
             </ul>
         </div>
     </nav>
-
-
 </template>
 
 
 <style scoped lang="scss">
+    .no-bullet {
+        list-style-type: none;
+    }
+
+    .no-underline {
+        text-decoration: none;
+    }
+
     .app-topnav {
         background: #333;
 

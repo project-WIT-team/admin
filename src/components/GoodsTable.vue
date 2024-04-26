@@ -5,10 +5,10 @@
             <el-table-column prop="id" label="id" width="50" />
             <el-table-column prop="title" label="名称" width="200"
                 :formatter="(row: Goods) => (row.title.length > 26 ? row.title.substring(0, 26) + '...' : row.title)" />
-            <el-table-column prop="price" label="价格" sortable width="90" />
-            <el-table-column prop="bank" label="库存" sortable width="90" />
-            <el-table-column prop="storage" label="销量" sortable width="90" />
-            <el-table-column prop="postage" label="邮费" sortable width="180" />
+            <el-table-column prop="price" label="价格" sortable width="80" />
+            <el-table-column prop="bank" label="库存" sortable width="80" />
+            <el-table-column prop="storage" label="销量" sortable width="80" />
+            <el-table-column prop="postage" label="邮费" sortable width="80" />
             <!-- 默认插槽，作用域为scope，在插槽中的代码能够访问scope，包含三个属性：row、column、$index -->
             <!-- 删除 -->
             <el-table-column label="" width="90">

@@ -9,10 +9,17 @@
 
 <script lang="ts" setup>
     import { ref } from 'vue'
+    import { useRoute } from 'vue-router'
+    const route = useRoute()
 
-    const activeIndex = ref('goodsTable')
-    const handleSelect = (key: string, keyPath: string[]) => {
-        console.log(key, keyPath)
+    /* 
+    route.path.split('/')[1] 用来获取当前路由路径的第一个部分
+    route.path 是当前的路由路径，如/goodsTable/item，split('/') 将这个路径按照 / 分割成多个部分，
+    然后 [1] 获取了第一个部分，即goodsTable。
+     */
+    const activeIndex = ref<string>(route.path.split('/')[1])
+    const handleSelect = (key: string) => {
+        console.log("key:", key)
     }
 
     let itemInHeader = ref([

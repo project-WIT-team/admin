@@ -35,11 +35,11 @@
     padding-bottom: 100px;
 
     display: flex;
+    /* 项目排列方向：垂直排列 */
     flex-direction: column;
     /* 左右居中 */
     align-items: center;
-    /* 上下居中 */
-    /* justify-content: center; */
+
   }
 
   .el-container {

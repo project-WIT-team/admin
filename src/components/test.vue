@@ -1,64 +1,64 @@
 <template>
-    <div class="content"></div>
-    <el-row :gutter="16">
+    <div>
+        <el-row :gutter="16" class="content">
 
-        <el-col :span="8">
-            <div class="statistic-card">
-                <el-statistic :value="sales">
-                    <template #title>
-                        <div style="display: inline-flex; align-items: center">
-                            今日营销额
-                            <el-tooltip effect="dark" content="单日营销额" placement="top">
-                                <el-icon style="margin-left: 4px" :size="12">
-                                    <Warning />
+            <el-col :span="8">
+                <div class="statistic-card">
+                    <el-statistic :value="sales">
+                        <template #title>
+                            <div style="display: inline-flex; align-items: center">
+                                今日营销额
+                                <el-tooltip effect="dark" content="单日营销额" placement="top">
+                                    <el-icon style="margin-left: 4px" :size="12">
+                                        <Warning />
+                                    </el-icon>
+                                </el-tooltip>
+                            </div>
+                        </template>
+                    </el-statistic>
+                    <div class="statistic-footer">
+                        <div class="footer-item">
+                            <span>与昨天相比</span>
+                            <span class="green">
+                                24%
+                                <el-icon>
+                                    <CaretTop />
                                 </el-icon>
-                            </el-tooltip>
+                            </span>
                         </div>
-                    </template>
-                </el-statistic>
-                <div class="statistic-footer">
-                    <div class="footer-item">
-                        <span>与昨天相比</span>
-                        <span class="green">
-                            24%
-                            <el-icon>
-                                <CaretTop />
-                            </el-icon>
-                        </span>
                     </div>
                 </div>
-            </div>
-        </el-col>
+            </el-col>
 
-        <el-col :span="8">
-            <div class="statistic-card">
-                <el-statistic :value="salesVolume">
-                    <template #title>
-                        <div style="display: inline-flex; align-items: center">
-                            今日销量
-                            <el-tooltip effect="dark" content="单日销售数量" placement="top">
-                                <el-icon style="margin-left: 4px" :size="12">
-                                    <Warning />
+            <el-col :span="8">
+                <div class="statistic-card">
+                    <el-statistic :value="salesVolume">
+                        <template #title>
+                            <div style="display: inline-flex; align-items: center">
+                                今日销量
+                                <el-tooltip effect="dark" content="单日销售数量" placement="top">
+                                    <el-icon style="margin-left: 4px" :size="12">
+                                        <Warning />
+                                    </el-icon>
+                                </el-tooltip>
+                            </div>
+                        </template>
+                    </el-statistic>
+                    <div class="statistic-footer">
+                        <div class="footer-item">
+                            <span>与昨天相比</span>
+                            <span class="red">
+                                12%
+                                <el-icon>
+                                    <CaretBottom />
                                 </el-icon>
-                            </el-tooltip>
+                            </span>
                         </div>
-                    </template>
-                </el-statistic>
-                <div class="statistic-footer">
-                    <div class="footer-item">
-                        <span>与昨天相比</span>
-                        <span class="red">
-                            12%
-                            <el-icon>
-                                <CaretBottom />
-                            </el-icon>
-                        </span>
                     </div>
                 </div>
-            </div>
-        </el-col>
+            </el-col>
 
-        <!-- <el-col :span="8">
+            <!-- <el-col :span="8">
             <div class="statistic-card">
                 <el-statistic :value="72000" title="New transactions today">
                     <template #title>
@@ -85,7 +85,9 @@
                 </div>
             </div>
         </el-col> -->
-    </el-row>
+        </el-row>
+
+    </div>
 </template>
 
 <script lang="ts" setup>
@@ -97,11 +99,14 @@
 </script>
 
 <style scoped>
-    .content {
-        display: inline-block
+    .row {
+        display: inline
     }
 
-
+    .content {
+        display: flex;
+        flex-direction: row;
+    }
 
     :global(h2#card-usage ~ .example .example-showcase) {
         background-color: var(--el-fill-color) !important;
@@ -112,8 +117,9 @@
     }
 
     .statistic-card {
-        height: 100%;
+        width: 100px;
         padding: 20px;
+        margin: 30px;
         border-radius: 4px;
         background-color: var(--el-bg-color-overlay);
     }
