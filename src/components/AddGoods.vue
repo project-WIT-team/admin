@@ -1,68 +1,79 @@
 <template>
-    <el-form :model="form" label-width="auto" enctype="multipart/form-data" style="max-width: 600px">
-        <el-form-item label="商品主页词条">
-            <el-input v-model="form.title" />
-        </el-form-item>
-
-        <el-form-item label="商品价格">
-            <el-input v-model="form.price" />
-        </el-form-item>
-
-        <el-form-item label="商品成本">
-            <el-input v-model="form.cost" />
-        </el-form-item>
-
-        <el-form-item label="版本">
-            <el-input v-model="form.type" />
-        </el-form-item>
-
-        <el-form-item label="库存量">
-            <el-input v-model="form.bank" />
-        </el-form-item>
-
-        <el-form-item label="显示位置">
-            <el-input v-model="form.place" />
-        </el-form-item>
-
-        <el-form-item label="类别">
-            <el-select v-model="form.type" placeholder="请选择分类">
-                <el-option label="手机" value="phone" />
-                <el-option label="电脑" value="computer" />
-            </el-select>
-        </el-form-item>
-
-        <el-form-item label="邮费(为0时自动包邮)">
-            <el-input v-model="form.postage" />
-        </el-form-item>
-        I
-        <!-- 轮播图上传 -->
-        <el-upload :action="httpIns.defaults.baseURL + '/uploadImg'"
-            :headers="{ 'Authorization': userStore.userInfo.token }" method="post" v-model:file-list="file" multiple
-            list-type="picture" :on-success="getBannerData" drag>
-            <el-icon class="el-icon--upload"><upload-filled /></el-icon>
-            <div class="el-upload__text">
-                上传轮播图:
-                拖拽图片或<em>点击上传</em>
-            </div>
-        </el-upload>
+    <div class="content">
 
 
-        <!-- 详情图上传 -->
-        <el-upload :action="httpIns.defaults.baseURL + '/uploadImg'"
-            :headers="{ 'Authorization': userStore.userInfo.token }" method="post" v-model:file-list="file" multiple
-            list-type="picture" :on-success="getDetailData" drag>
-            <el-icon class="el-icon--upload"><upload-filled /></el-icon>
-            <div class="el-upload__text">
-                上传详情图:
-                拖拽图片或<em>点击上传</em>
-            </div>
-        </el-upload>
 
-        <el-form-item>
-            <el-button type="primary" @click="onSubmit">发送</el-button>
-            <el-button>Cancel</el-button>
-        </el-form-item>
-    </el-form>
+        <h2 class="title">添加商品</h2>
+        <el-form :model="form" label-width="auto" enctype="multipart/form-data" style="max-width: 600px"
+            scroll-to-error>
+            <el-form-item label="商品主页标题">
+                <!-- <el-input v-model="form.title" /> -->
+                <el-input v-model="form.title" maxlength="30" style="width: 300px" show-word-limit type="textarea" />
+            </el-form-item>
+
+            <el-form-item label="商品价格">
+                <!-- <el-input v-model="form.price" /> -->
+                <el-input-number v-model="form.price" :min="0.01" />
+            </el-form-item>
+
+            <el-form-item label="商品成本">
+                <!-- <el-input v-model="form.cost" /> -->
+                <el-input-number v-model="form.cost" :min="0.01" />
+            </el-form-item>
+
+            <el-form-item label="库存量">
+                <!-- <el-input v-model="form.bank" /> -->
+                <el-input-number v-model="form.bank" :min="0" />
+            </el-form-item>
+
+            <el-form-item label="显示位置">
+                <el-radio-group v-model="form.place">
+                    <el-radio value="1">首页推送</el-radio>
+                    <el-radio value="0">不推送</el-radio>
+                </el-radio-group>
+            </el-form-item>
+
+            <el-form-item label="类别">
+                <el-select v-model="form.type" placeholder="请选择分类" style="width: 300px">
+                    <el-option label="电子产品" value="电子产品" />
+                    <el-option label="生活用品" value="生活用品" />
+                </el-select>
+            </el-form-item>
+
+            <el-form-item label="邮费(为0时包邮)">
+                <el-input-number v-model="form.postage" :min="0" />
+                <!-- <el-input v-model="form.postage" /> -->
+            </el-form-item>
+
+            <!-- 轮播图上传 -->
+            <el-upload :action="httpIns.defaults.baseURL + '/uploadImg'"
+                :headers="{ 'Authorization': userStore.userInfo.token }" method="post" v-model:file-list="file" multiple
+                list-type="picture" :on-success="getBannerData" drag>
+                <el-icon class="el-icon--upload"><upload-filled /></el-icon>
+                <div class="el-upload__text">
+                    上传轮播图:
+                    拖拽图片或<em>点击上传</em>
+                </div>
+            </el-upload>
+
+
+            <!-- 详情图上传 -->
+            <el-upload :action="httpIns.defaults.baseURL + '/uploadImg'"
+                :headers="{ 'Authorization': userStore.userInfo.token }" method="post" v-model:file-list="file" multiple
+                list-type="picture" :on-success="getDetailData" drag>
+                <el-icon class="el-icon--upload"><upload-filled /></el-icon>
+                <div class="el-upload__text">
+                    上传详情图:
+                    拖拽图片或<em>点击上传</em>
+                </div>
+            </el-upload>
+
+            <el-form-item class="button">
+                <el-button type="primary" @click="onSubmit">提交</el-button>
+                <el-button @click="$router.push('/')">取消</el-button>
+            </el-form-item>
+        </el-form>
+    </div>
 </template>
 
 <script lang="ts" setup>
@@ -77,12 +88,12 @@
 
     const form = reactive({
         title: '',
-        postage: '',
+        postage: 0,
         type: '',//分类
-        price: '',
-        cost: '',
-        bank: '',
-        place: '',
+        price: 1,
+        cost: 1,
+        bank: 1,
+        place: null,
         BannerImg: [] as string[],
         detailImg: [] as string[],
     })
@@ -131,3 +142,21 @@
         console.log("form.detailImg:", form.detailImg);
     };
 </script>
+
+
+
+
+<style scoped>
+    .title {
+        text-align: center;
+
+    }
+
+    .button {
+        text-align: center;
+        display: flex;
+        align-items: center;
+    }
+
+
+</style>

@@ -1,12 +1,5 @@
 <template>
     <div class="background">
-        <!-- <form ref="formRef" class="sign-up">
-            <h1 class="sign-up-title">商城后台管理系统</h1>
-            <input type="text" class="sign-up-input" v-model="data.username" placeholder="请输入账号" required autofocus>
-            <input type="password" class="sign-up-input" v-model="data.password" placeholder="请输入密码" required>
-            <button type="submit" value="登录" class="sign-up-button" @click="onSubmit">登录</button>
-        </form> -->
-
         <el-form ref="formRef" class="sign-up" :model="data" :rules="rules" status-icon>
             <h1 class="sign-up-title">商城后台管理系统</h1>
             <el-form-item prop="username" label="账户">
@@ -17,9 +10,7 @@
             </el-form-item>
             <el-button size="large" class="sign-up-button" @click="doLogin()">点击登录</el-button>
         </el-form>
-
     </div>
-
 </template>
 
 
@@ -39,45 +30,6 @@
     })
     const router = useRouter()
 
-    // const onSubmit = () => {
-
-    //     httpIns.post('/admin/login',
-    //         qs.stringify(data),
-    //         {
-    //             headers: {
-    //                 'Content-Type': "application/x-www-form-urlencoded"
-    //             }
-    //         }
-    //     ).then(res => {
-    //         if (res.data.code === 200) {
-    //             router.push({
-    //                 path: '/',
-    //             })
-
-    //         }
-    //     }).catch(err => {
-    //         console.log(err);
-    //     })
-    // }
-
-
-    // const onSubmit = async () => {
-    //     try {
-    //         const res = await loginAPI(data);
-    //         // console.log("res:", res);
-    //         // console.log("res.data.token:", res.data.token);
-
-
-    //         if (res.data.code === 200) {
-    //             localStorage.setItem('token', res.data.token)//将token保存到本地
-    //             router.push({
-    //                 path: '/',//跳转到首页
-    //             })
-    //         }
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // }
 
     const formRef = ref()
     const userStore = useUserStore()

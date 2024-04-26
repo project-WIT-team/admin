@@ -36,8 +36,15 @@ const router = createRouter({
                     name: "测试",
                     component: () => import("@/components/test.vue"),
                 },
+                {
+                    path: "/edit",
+                    name: "编辑",
+                    component: () => import("@/components/editGoods.vue"),
+                    props: (route) => route.query,
+                },
             ],
         },
+
         {
             path: "/login",
             name: "登录",
