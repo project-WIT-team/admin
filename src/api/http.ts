@@ -4,7 +4,6 @@ import "element-plus/theme-chalk/el-message.css"
 import router from "@/router"
 import { useUserStore } from "@/stores/user"
 
-// 创建axios实例
 const httpIns = axios.create({
     baseURL: "http://8.149.133.241:5868/admin",
 
@@ -33,16 +32,24 @@ httpIns.interceptors.request.use(
 // axios响应式拦截器,这个拦截器也接收两个函数参数，
 // 第一个函数用于处理响应数据，第二个函数用于处理响应错误
 httpIns.interceptors.response.use(
-    (res) => res.data,
+    (res) => res,
     (e) => {
-        ElMessage({
-            type: "error",
-            message: e.message || "未知错误",
-        })
-        //401token失效处理
-        if (e.response.status === 401) {
+        console.log(e.response)
+        //token失效处理
+        if (e.response.status === 466) {
+            ElMessage({
+                type: "error",
+                message: "token失效",
+            })
             const userStore = useUserStore()
             userStore.clearUserInfo()
+            router.push("/login")
+            //密码错误处理
+        } else if (e.response.status === 401) {
+            ElMessage({
+                type: "error",
+                message: "密码错误",
+            })
             router.push("/login")
         }
 

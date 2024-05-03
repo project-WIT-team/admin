@@ -3,7 +3,7 @@
   <el-container>
     <el-header height="50px" class="header"> <page-navigation /> </el-header>
     <el-container>
-      <el-aside width="200px" class="aside"><page-aside /></el-aside>
+      <el-aside class="aside"><page-aside /></el-aside>
       <el-main class="main"><router-view></router-view></el-main>
     </el-container>
   </el-container>
@@ -24,6 +24,8 @@
   .aside {
     float: left;
     background-color: #364246;
+    min-width: 100px;
+    width: 10%;
   }
 
   .header {
@@ -31,8 +33,10 @@
   }
 
   .main {
-
-    padding-bottom: 100px;
+    float: right;
+    width: 90%;
+    /* padding-bottom: 100px; */
+    padding: 0 50px 100px 50px;
 
     display: flex;
     /* 项目排列方向：垂直排列 */

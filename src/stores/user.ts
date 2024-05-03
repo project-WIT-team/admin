@@ -18,7 +18,8 @@ export const useUserStore = defineStore(
             password: string
         }) => {
             const res = await loginAPI({ username, password })
-            userInfo.value = res.data
+            console.log("!login success:::", res.data.data.token)
+            userInfo.value = res.data.data
         }
 
         const clearUserInfo = () => {

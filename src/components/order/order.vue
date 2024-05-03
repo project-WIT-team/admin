@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <el-table :data="currentTableData">
+    <div class="centered-content">
+        <el-table class="table" :data="currentTableData" border :cell-style="{ textAlign: 'center' }">
             <el-table-column prop="id" label="订单号" width="90" />
             <el-table-column prop="title" label="名称" width="200"
                 :formatter="(row: Goods) => (row.title.length > 26 ? row.title.substring(0, 26) + '...' : row.title)" />
@@ -15,7 +15,7 @@
 
         </el-table>
         <!-- 分页 -->
-        <el-pagination @size-change="sizeChange" @current-change="currentChange" :current-page="page"
+        <el-pagination class="pagination" @size-change="sizeChange" @current-change="currentChange" :current-page="page"
             :page-size="pageSize" :pager-count="7" layout="prev, pager, next" :total="totalData" background>
         </el-pagination>
     </div>
@@ -27,6 +27,8 @@
     import { ref } from 'vue';
 
     const orderStore = useOrderStore()
+
+    orderStore.getOrderData()
 
 
 
@@ -59,16 +61,20 @@
 
 </script>
 
-<style lang="scss">
-
-
-
-
-    .el-table .warning-row {
-        --el-table-tr-bg-color: red;
+<style lang="scss" scoped>
+    .table {
+        display: inline-block
     }
 
-    .el-table .success-row {
-        --el-table-tr-bg-color: #9fe4cd;
+    .pagination {
+        display: flex;
+        align-items: center;
     }
+
+    .centered-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
 </style>

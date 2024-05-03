@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router"
 import Layout from "@/views/Layout/index.vue"
+import { createWebHashHistory } from "vue-router"
 
 const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
+    // history: createWebHistory(import.meta.env.BASE_URL),
+    history: createWebHashHistory(import.meta.env.BASE_URL),
     routes: [
         {
             path: "/",
@@ -13,22 +15,17 @@ const router = createRouter({
                 {
                     path: "goodsTable",
                     name: "商品列表",
-                    component: () => import("@/components/GoodsTable.vue"),
+                    component: () => import("@/components/goodsTable/goodsTable.vue"),
                 },
                 {
                     path: "addGoods",
                     name: "添加商品",
-                    component: () => import("@/components/AddGoods.vue"),
-                },
-                {
-                    path: "offGoods",
-                    name: "下架商品",
-                    component: () => import("@/components/OffGoods.vue"),
+                    component: () => import("@/components/addGoods/addGoods.vue"),
                 },
                 {
                     path: "order",
                     name: "订单列表",
-                    component: () => import("@/components/order.vue"),
+                    component: () => import("@/components/order/order.vue"),
                 },
 
                 {
@@ -39,7 +36,7 @@ const router = createRouter({
                 {
                     path: "/edit",
                     name: "编辑",
-                    component: () => import("@/components/editGoods.vue"),
+                    component: () => import("@/components/editGoods/editGoods.vue"),
                     props: (route) => route.query,
                 },
             ],

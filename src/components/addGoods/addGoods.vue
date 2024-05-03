@@ -1,25 +1,25 @@
 <template>
     <div class="content">
-        <h2 class="title">编辑商品</h2>
+        <h2 class="title">添加商品</h2>
         <el-form :model="form" label-width="auto" enctype="multipart/form-data" style="max-width: 600px"
             scroll-to-error>
-            <el-form-item label="商品id">
-                <el-input v-model="goodsId" disabled style="max-width: 50px" />
-            </el-form-item>
-
             <el-form-item label="商品主页标题">
+                <!-- <el-input v-model="form.title" /> -->
                 <el-input v-model="form.title" maxlength="70" style="width: 300px" show-word-limit type="textarea" />
             </el-form-item>
 
             <el-form-item label="商品价格">
+                <!-- <el-input v-model="form.price" /> -->
                 <el-input-number v-model="form.price" :min="0.01" />
             </el-form-item>
 
             <el-form-item label="商品成本">
+                <!-- <el-input v-model="form.cost" /> -->
                 <el-input-number v-model="form.cost" :min="0.01" />
             </el-form-item>
 
             <el-form-item label="库存量">
+                <!-- <el-input v-model="form.bank" /> -->
                 <el-input-number v-model="form.bank" :min="0" />
             </el-form-item>
 
@@ -39,7 +39,7 @@
 
             <el-form-item label="邮费(为0时包邮)">
                 <el-input-number v-model="form.postage" :min="0" />
-
+                <!-- <el-input v-model="form.postage" /> -->
             </el-form-item>
 
             <!-- 轮播图上传 -->
@@ -74,50 +74,27 @@
 </template>
 
 <script lang="ts" setup>
-    import { ref, reactive, onMounted } from 'vue'
+    import { ref, reactive } from 'vue'
     import { ElMessageBox } from 'element-plus'
     import type { UploadProps, UploadUserFile } from 'element-plus'
     import { UploadFilled } from '@element-plus/icons-vue'
     import httpIns from '@/api/http';
     import qs from 'qs'
     import { useUserStore } from '@/stores/user';
-    import { useRoute } from 'vue-router';
-    import { useGoodsListStore } from '@/stores/goodsList';
+    import { ElMessage } from 'element-plus'
     const userStore = useUserStore();
-    const route = useRoute();
-    const goodsId = route.query.id;
-
-
-
 
     const form = reactive({
-        id: goodsId,
         title: '',
         postage: 0,
         type: '',//分类
         price: 1,
         cost: 1,
         bank: 1,
-        place: '0',
+        place: null,
         BannerImg: [] as string[],
         detailImg: [] as string[],
     })
-
-    const { goodsList } = useGoodsListStore()
-
-    //在goodsList查找id为goodsId的商品，并将form的值设置为该商品的值
-    const goods = goodsList.find((item: any) => item.id == goodsId);
-    if (goods) {
-        form.title = goods.title;
-        form.postage = goods.postage;
-        form.type = goods.type;
-        form.price = goods.price;
-        form.cost = goods.cost;
-        form.bank = goods.bank;
-        form.place = goods.place;
-        form.BannerImg = goods.BannerImg;
-        form.detailImg = goods.detailImg;
-    }
 
     //向服务器发送数据
     const onSubmit = () => {
@@ -126,7 +103,15 @@
         ).then(res => {
             console.log("请求res:", res);
             if (res.data.code === 200) {
-                console.log('submit!')
+                ElMessage({
+                    message: '添加成功！',
+                    type: 'success',
+                })
+            } else {
+                ElMessage({
+                    message: '添加失败！',
+                    type: 'error',
+                })
             }
         }).catch(err => {
             console.log(err);

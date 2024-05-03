@@ -20,14 +20,12 @@
      */
     const activeIndex = ref<string>(route.path.split('/')[1])
     const handleSelect = (key: string) => {
-        console.log("key:", key)
+        console.log("当前页:", key)
     }
 
     let itemInHeader = ref([
         { id: 'goodsTable', name: '商品列表', },
         { id: 'addGoods', name: '添加商品', },
-        { id: 'offGoods', name: '下架商品', },
-        { id: 'test', name: '测试', },
         { id: 'order', name: '订单', }
 
     ])

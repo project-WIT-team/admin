@@ -10,7 +10,9 @@ export const useGoodsListStore = defineStore(
         const getGoodsData = async () => {
             //从服务器获取数据
             const {
-                data: { goods },
+                data: {
+                    data: { goods },
+                },
             } = await httpIns.get("/getGoods")
             console.log("success get goods api:", goods)
 
