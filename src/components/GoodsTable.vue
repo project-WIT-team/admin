@@ -1,15 +1,24 @@
 <template>
     <!-- table -->
     <div class="centered-content">
-        <el-table class="table" :data="currentTableData" :row-class-name="colorChangeByNumber" border align="center">
+        <el-table class="table" :data="currentTableData" border :cell-style="{ textAlign: 'center' }"
+            :header-cell-style="{ 'text-align': 'center' }">
             <el-table-column prop="id" label="id" width="50" />
             <el-table-column prop="title" label="名称" width="200"
                 :formatter="(row: Goods) => (row.title.length > 26 ? row.title.substring(0, 26) + '...' : row.title)" />
             <el-table-column prop="price" label="价格" sortable width="80" />
             <el-table-column prop="bank" label="库存" sortable width="80" />
-            <el-table-column prop="storage" label="销量" sortable width="80" />
+            <el-table-column prop="salesVolume" label="销量" sortable width="80" />
+            <el-table-column prop="type" label="分类" sortable width="100" />
             <el-table-column prop="postage" label="邮费" sortable width="80" />
+
             <!-- 默认插槽，作用域为scope，在插槽中的代码能够访问scope，包含三个属性：row、column、$index -->
+            <el-table-column prop="" label="图片">
+                <template #="scope">
+                    <el-image ref="pic" style="width: 100px; height: 100px"
+                        :src="`http://8.149.133.241:5868${scope.row.mainImage}`" fit="cover"></el-image>
+                </template>
+            </el-table-column>
             <!-- 删除 -->
             <el-table-column label="" width="90">
                 <template #="scope">
@@ -23,6 +32,7 @@
                         :icon="Edit" circle />
                 </template>
             </el-table-column>
+
         </el-table>
         <!-- 分页 -->
         <el-pagination class="pagination" @size-change="sizeChange" @current-change="currentChange" :current-page="page"
@@ -47,16 +57,6 @@
     import qs from 'qs'
     import httpIns from '@/api/http';
     const goodsStore = useGoodsListStore()
-
-    //颜色提醒功能
-    const colorChangeByNumber = (params: { row: Goods }) => {
-        if (params.row.storage < 100) {
-            return 'warning-row'
-        } else if (params.row.storage > 2000) {
-            return 'success-row'
-        }
-        return ''
-    }
 
     //分页功能
     let page = ref(1)//当前页
@@ -116,12 +116,4 @@
     }
 
 
-
-    .el-table .warning-row {
-        --el-table-tr-bg-color: #{$warnColor};
-    }
-
-    .el-table .success-row {
-        --el-table-tr-bg-color: #9fe4cd;
-    }
 </style>
