@@ -1,7 +1,8 @@
 <template>
 
-    <el-header class="header"> <el-menu class="el-menu" :default-active="activeIndex" mode="vertical" :ellipsis="false"
-            @select="handleSelect" router>
+    <el-header class="header">
+        <el-menu class="el-menu" :default-active="activeIndex" mode="vertical" :ellipsis="false" @select="handleSelect"
+            router>
             <el-menu-item :index="item.id" v-for="item in itemInHeader" class="item">{{ item.name }}</el-menu-item>
         </el-menu>
     </el-header>

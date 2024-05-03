@@ -83,8 +83,6 @@
 
     getTableData()
 
-    //todo 添加关闭颜色提醒可选项
-
     function deleteItemById(id: any) {
         httpIns.post('/deleteGoods',
             qs.stringify(id)//商品id

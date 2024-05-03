@@ -12,7 +12,6 @@
             <el-table-column label="" width="90">
                 <el-button type="danger" :icon="Delete" circle />
             </el-table-column>
-
             <el-table-column label="" width="90">
                 <el-button type="primary" :icon="Edit" circle />
             </el-table-column>

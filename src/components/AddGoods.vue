@@ -1,14 +1,11 @@
 <template>
     <div class="content">
-
-
-
         <h2 class="title">添加商品</h2>
         <el-form :model="form" label-width="auto" enctype="multipart/form-data" style="max-width: 600px"
             scroll-to-error>
             <el-form-item label="商品主页标题">
                 <!-- <el-input v-model="form.title" /> -->
-                <el-input v-model="form.title" maxlength="30" style="width: 300px" show-word-limit type="textarea" />
+                <el-input v-model="form.title" maxlength="70" style="width: 300px" show-word-limit type="textarea" />
             </el-form-item>
 
             <el-form-item label="商品价格">
