@@ -30,22 +30,18 @@
                 </el-radio-group>
             </el-form-item>
 
-            <el-form-item label="类别">
-                <el-select v-model="form.type" placeholder="请选择分类" style="width: 300px">
-                    <el-option label="电子产品" value="电子产品" />
-                    <el-option label="生活用品" value="生活用品" />
-                </el-select>
+            <el-form-item label="分类">
+                    <el-input v-model="form.type" style="max-width: 150px" />
             </el-form-item>
 
             <el-form-item label="邮费(为0时包邮)">
                 <el-input-number v-model="form.postage" :min="0" />
-                <!-- <el-input v-model="form.postage" /> -->
             </el-form-item>
 
             <!-- 轮播图上传 -->
             <el-upload :action="httpIns.defaults.baseURL + '/uploadImg'"
-                :headers="{ 'Authorization': userStore.userInfo.token }" method="post" v-model:file-list="file" multiple
-                list-type="picture" :on-success="getBannerData" drag>
+                :headers="{ 'Authorization': userStore.userInfo.token }" method="post" v-model:file-list="bannerFile" multiple
+                list-type="picture" :on-success="getBannerData" :on-remove="removeDetailImg" drag>
                 <el-icon class="el-icon--upload"><upload-filled /></el-icon>
                 <div class="el-upload__text">
                     上传轮播图:
@@ -56,8 +52,8 @@
 
             <!-- 详情图上传 -->
             <el-upload :action="httpIns.defaults.baseURL + '/uploadImg'"
-                :headers="{ 'Authorization': userStore.userInfo.token }" method="post" v-model:file-list="file" multiple
-                list-type="picture" :on-success="getDetailData" drag>
+                :headers="{ 'Authorization': userStore.userInfo.token }" method="post" v-model:file-list="detailFile" multiple
+                list-type="picture" :on-success="getDetailData" :on-remove="removeDetailImg" drag>
                 <el-icon class="el-icon--upload"><upload-filled /></el-icon>
                 <div class="el-upload__text">
                     上传详情图:
@@ -82,6 +78,7 @@
     import qs from 'qs'
     import { useUserStore } from '@/stores/user';
     import { ElMessage } from 'element-plus'
+    // 获取表单数据并初始化
     const userStore = useUserStore();
 
     const form = reactive({
@@ -91,7 +88,7 @@
         price: 1,
         cost: 1,
         bank: 1,
-        place: null,
+        place: '0',
         BannerImg: [] as string[],
         detailImg: [] as string[],
     })
@@ -122,6 +119,29 @@
     const file = ref<UploadUserFile[]>([
     ])
 
+    const detailFile = ref<UploadUserFile[]>([])
+    const bannerFile = ref<UploadUserFile[]>([])
+
+    const removeBannerImg: UploadProps['onRemove'] = (uploadFile, uploadFiles) => {
+        const url = uploadFile.url?.replace(/http:\/\/8\.149\.133\.241:5868/, '') ?? '';
+        const index = form.BannerImg.indexOf(url);
+        if (index !== -1) {
+            form.BannerImg.splice(index, 1);
+        }
+        console.log('处理：', uploadFile)
+        console.log("removed！the rest BannerImg:", form.BannerImg);
+    }
+
+    const removeDetailImg: UploadProps['onRemove'] = (uploadFile, uploadFiles) => {
+        const url = uploadFile.url?.replace(/http:\/\/8\.149\.133\.241:5868/, '') ?? '';
+        const index = form.detailImg.indexOf(url);
+        if (index !== -1) {
+            form.detailImg.splice(index, 1);
+        }
+        console.log('处理：', uploadFile)
+        console.log("removed！the rest detailImg:", form.detailImg);
+    }
+
 
 
     const beforeRemove: UploadProps['beforeRemove'] = (uploadFile, uploadFiles) => {
@@ -132,7 +152,6 @@
             () => false
         )
     }
-
 
     const getBannerData = (response: any, file: UploadUserFile, fileList: UploadUserFile[]) => {
         // 服务器返回的响应保存在 response 参数中

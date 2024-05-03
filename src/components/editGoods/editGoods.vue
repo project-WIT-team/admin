@@ -30,7 +30,7 @@
                 </el-radio-group>
             </el-form-item>
 
-            <el-form-item label="类别">
+            <el-form-item label="分类">
                 <!-- <el-select v-model="form.type" placeholder="请选择分类" style="width: 300px">
                     <el-option label="电子产品" value="电子产品" />
                     <el-option label="生活用品" value="生活用品" />
@@ -151,7 +151,7 @@
     const detailFile = ref<UploadUserFile[]>(goods.detailedImage.map((image: any) => ({
         name: '',
         url: `http://8.149.133.241:5868${image.path}`
-    })));
+    })))
 
     const bannerFile = ref<UploadUserFile[]>(goods.topImage.map((image: any) => ({
         name: '',
