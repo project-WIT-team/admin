@@ -31,7 +31,7 @@
             </el-form-item>
 
             <el-form-item label="分类">
-                    <el-input v-model="form.type" style="max-width: 150px" />
+                <el-input v-model="form.type" style="max-width: 150px" />
             </el-form-item>
 
             <el-form-item label="邮费(为0时包邮)">
@@ -40,8 +40,9 @@
 
             <!-- 轮播图上传 -->
             <el-upload :action="httpIns.defaults.baseURL + '/uploadImg'"
-                :headers="{ 'Authorization': userStore.userInfo.token }" method="post" v-model:file-list="bannerFile" multiple
-                list-type="picture" :on-success="getBannerData" :on-remove="removeDetailImg" drag>
+                :headers="{ 'Authorization': userStore.userInfo.token }" method="post" v-model:file-list="bannerFile"
+                multiple list-type="picture" :on-success="getBannerData" :before-remove="beforeRemove"
+                :on-remove="removeBannerImg" drag>
                 <el-icon class="el-icon--upload"><upload-filled /></el-icon>
                 <div class="el-upload__text">
                     上传轮播图:
@@ -52,8 +53,9 @@
 
             <!-- 详情图上传 -->
             <el-upload :action="httpIns.defaults.baseURL + '/uploadImg'"
-                :headers="{ 'Authorization': userStore.userInfo.token }" method="post" v-model:file-list="detailFile" multiple
-                list-type="picture" :on-success="getDetailData" :on-remove="removeDetailImg" drag>
+                :headers="{ 'Authorization': userStore.userInfo.token }" method="post" v-model:file-list="detailFile"
+                multiple list-type="picture" :on-success="getDetailData" :before-remove="beforeRemove"
+                :on-remove="removeDetailImg" drag>
                 <el-icon class="el-icon--upload"><upload-filled /></el-icon>
                 <div class="el-upload__text">
                     上传详情图:
@@ -71,13 +73,12 @@
 
 <script lang="ts" setup>
     import { ref, reactive } from 'vue'
-    import { ElMessageBox } from 'element-plus'
+    import { ElMessageBox, ElMessage } from 'element-plus'
     import type { UploadProps, UploadUserFile } from 'element-plus'
     import { UploadFilled } from '@element-plus/icons-vue'
     import httpIns from '@/api/http';
     import qs from 'qs'
     import { useUserStore } from '@/stores/user';
-    import { ElMessage } from 'element-plus'
     // 获取表单数据并初始化
     const userStore = useUserStore();
 
@@ -114,13 +115,9 @@
             console.log(err);
         })
     }
-
-
-    const file = ref<UploadUserFile[]>([
-    ])
-
     const detailFile = ref<UploadUserFile[]>([])
     const bannerFile = ref<UploadUserFile[]>([])
+
 
     const removeBannerImg: UploadProps['onRemove'] = (uploadFile, uploadFiles) => {
         const url = uploadFile.url?.replace(/http:\/\/8\.149\.133\.241:5868/, '') ?? '';
