@@ -5,7 +5,7 @@
             :header-cell-style="{ 'text-align': 'center' }">
             <el-table-column prop="id" label="id" width="50" />
             <el-table-column prop="title" label="名称" width="200"
-                :formatter="(row: Goods) => (row.title.length > 26 ? row.title.substring(0, 26) + '...' : row.title)" />
+                :formatter="(row: any) => (row.title.length > 26 ? row.title.substring(0, 26) + '...' : row.title)" />
             <el-table-column prop="price" label="价格" sortable width="80" />
             <el-table-column prop="bank" label="库存" sortable width="80" />
             <el-table-column prop="salesVolume" label="销量" sortable width="80" />
@@ -22,7 +22,7 @@
             <!-- 默认插槽，作用域为scope，在插槽中的代码能够访问scope，包含三个属性：row、column、$index -->
             <el-table-column prop="" label="图片">
                 <template #="scope">
-                    <el-image ref="pic" style="width: 100px; height: 100px"
+                    <el-image style="width: 100px; height: 100px" zoom-scale="1.2"
                         :src="`http://8.149.133.241:5868${scope.row.mainImage}`" fit="cover"></el-image>
                 </template>
             </el-table-column>
@@ -51,8 +51,9 @@
 
         </el-table>
         <!-- 分页 -->
-        <el-pagination class="pagination" @size-change="sizeChange" @current-change="currentChange" :current-page="page"
-            :page-size="pageSize" :pager-count="7" layout="prev, pager, next" :total="totalData" background>
+        <el-pagination v-if="totalData" class="pagination" @size-change="sizeChange" @current-change="currentChange"
+            :current-page="page" :page-size="pageSize" :pager-count="7" layout="prev, pager, next" :total="totalData"
+            background>
         </el-pagination>
 
     </div>
@@ -67,25 +68,28 @@
         Search,
         Star,
     } from '@element-plus/icons-vue'
-    import type Goods from '@/interface/goods'
     import { useGoodsListStore } from '@/stores/goodsList';
     import { ref } from 'vue';
     import qs from 'qs'
     import httpIns from '@/api/http';
     import { ElMessageBox } from 'element-plus'
     import { ElNotification } from 'element-plus'
+    import { onMounted } from 'vue';
 
     const goodsStore = useGoodsListStore()
+
+
+
 
     //分页功能
     let page = ref(1)//当前页
     let pageSize = ref(12)//每页显示的数目
-    let totalData = ref()//数据总数
+    let totalData = ref(1)//数据总数
     let currentTableData = ref();//一面的数据
     //获取表格数据,自动分页
     function getTableData() {
         currentTableData.value = goodsStore.goodsList.slice((page.value - 1) * pageSize.value, page.value * pageSize.value)
-        totalData.value = goodsStore.goodsList.length
+        totalData.value = parseInt(goodsStore.goodsList.length)
     }
 
     function sizeChange(value: number) {
@@ -99,7 +103,7 @@
         getTableData()
     }
 
-    getTableData()
+
 
     function deleteItemById(id: number) {
 
@@ -197,6 +201,12 @@
             () => false
         )
     }
+
+    onMounted(async () => {
+        await goodsStore.getGoodsData();
+        getTableData();
+    });
+
 
 
 

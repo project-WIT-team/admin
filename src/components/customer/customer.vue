@@ -42,23 +42,22 @@
         Search,
         Star,
     } from '@element-plus/icons-vue'
-    import type Goods from '@/interface/goods'
     import { ref } from 'vue';
     import qs from 'qs'
     import httpIns from '@/api/http';
     import { ElMessageBox } from 'element-plus'
     import { ElNotification } from 'element-plus'
     import { useCustomerStore } from '@/stores/customer';
+    import { onMounted } from 'vue';
 
     const { customers, getCustomerData } = useCustomerStore()
 
-    getCustomerData()
-    console.log("!!用户信息:", customers);
+
 
     //分页功能
     let page = ref(1)//当前页
     let pageSize = ref(12)//每页显示的数目
-    let totalData = ref()//数据总数
+    let totalData = ref(1)//数据总数
     let currentTableData = ref();//一面的数据
     //获取表格数据,自动分页
     function getTableData() {
@@ -78,7 +77,6 @@
         getTableData()
     }
 
-    getTableData()
 
     function deleteItemById(id: number) {
         ElMessageBox.confirm(
@@ -111,7 +109,10 @@
     }
 
 
-
+    onMounted(async () => {
+        await getCustomerData();
+        getTableData();
+    });
 
 
 

@@ -4,7 +4,7 @@
             :header-cell-style="{ 'text-align': 'center' }">
             <el-table-column prop="id" label="订单号" width="100" sortable />
             <el-table-column prop="title" label="名称" width="200"
-                :formatter="(row: Goods) => (row.title.length > 26 ? row.title.substring(0, 26) + '...' : row.title)" />
+                :formatter="(row: any) => (row.title.length > 26 ? row.title.substring(0, 26) + '...' : row.title)" />
             <el-table-column prop="price" label="付款金额" sortable width="110" />
             <el-table-column prop="gid" label="商品id" width="80" />
             <el-table-column prop="createTime" label="创建时间" width="110" />
@@ -36,20 +36,15 @@
 </template>
 
 <script lang="ts" setup>
-    import type Goods from '@/interface/goods'
     import { useOrderStore } from '@/stores/order';
     import { ref } from 'vue';
-
-    const { orders, getOrderData } = useOrderStore()
-
-    getOrderData()
-    console.log("订单信息:", orders);
-
+    import { onMounted } from 'vue';
+    const { orders, getOrderData } = useOrderStore();
 
     //分页功能
     let page = ref(1)//当前页
     let pageSize = ref(10)//每页显示的数目
-    let totalData = ref()//数据总数
+    let totalData = ref(1)//数据总数
     let currentTableData = ref();//一面的数据
     //获取表格数据,自动分页
     function getTableData() {
@@ -69,7 +64,10 @@
         getTableData()
     }
 
-    getTableData()
+    onMounted(async () => {
+        await getOrderData();
+        getTableData();
+    });
 
     //todo 添加关闭颜色提醒可选项
 

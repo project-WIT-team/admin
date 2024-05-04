@@ -18,7 +18,7 @@ export const useUserStore = defineStore(
             password: string
         }) => {
             const res = await loginAPI({ username, password })
-            console.log("!login success:::", res.data.data.token)
+            console.log("login success:", res.data.data.token)
             userInfo.value = res.data.data
         }
 
