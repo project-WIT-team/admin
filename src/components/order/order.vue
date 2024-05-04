@@ -12,7 +12,6 @@
             <el-table-column prop="uid" label="用户id" width="110" />
             <el-table-column prop="deliveryMethod" label="快递方式" width="110" />
             <el-table-column prop="status" label="状态" width="100" />
-
         </el-table>
         <!-- 分页 -->
         <el-pagination class="pagination" @size-change="sizeChange" @current-change="currentChange" :current-page="page"
@@ -26,10 +25,10 @@
     import { useOrderStore } from '@/stores/order';
     import { ref } from 'vue';
 
-    const orderStore = useOrderStore()
+    const { orders, getOrderData } = useOrderStore()
 
-    orderStore.getOrderData()
-
+    getOrderData()
+    console.log("订单信息:", orders);
 
 
     //分页功能
@@ -39,8 +38,8 @@
     let currentTableData = ref();//一面的数据
     //获取表格数据,自动分页
     function getTableData() {
-        currentTableData.value = orderStore.orders.slice((page.value - 1) * pageSize.value, page.value * pageSize.value)
-        totalData.value = orderStore.orders.length
+        currentTableData.value = orders.slice((page.value - 1) * pageSize.value, page.value * pageSize.value)
+        totalData.value = orders.length
         console.log("当前页数据信息:", currentTableData.value);
     }
 

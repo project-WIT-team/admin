@@ -72,36 +72,7 @@
 </template>
 
 <script lang="ts" setup>
-    import { ref } from 'vue'
-
-    import type { UploadUserFile } from 'element-plus'
-    import { UploadFilled } from '@element-plus/icons-vue'
-    import httpIns from '@/api/http';
     import { useUserStore } from '@/stores/user';
-    import useGoodsForm from '@/hooks/useGoodsForm';
-    // 获取表单数据并初始化
-    const userStore = useUserStore();
 
-    const { form, addSubmit, removeBannerImg, removeDetailImg, beforeRemove, getBannerData, getDetailData } = useGoodsForm();
 
-    const detailFile = ref<UploadUserFile[]>([])
-    const bannerFile = ref<UploadUserFile[]>([])
 </script>
-
-
-
-
-<style scoped>
-    .title {
-        text-align: center;
-
-    }
-
-    .button {
-        text-align: center;
-        display: flex;
-        align-items: center;
-    }
-
-
-</style>

@@ -1,4 +1,4 @@
-// 管理用户数据
+// 管理商家数据
 // 1.token
 
 import { defineStore } from "pinia"

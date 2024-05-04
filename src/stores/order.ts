@@ -27,46 +27,15 @@ import { reactive, ref } from "vue"
 export const useOrderStore = defineStore(
     "order",
     () => {
-        // let orders = ref([
-        //     {
-        //         id: 1,
-        //         title: "商品1",
-        //         price: 100,
-        //         gid: 1,
-        //         uid: 1,
-        //         num: 1,
-        //         address: "北京",
-        //         createTime: "2021-10-01",
-        //         payTime: "2021-10-02",
-        //         deliveryTime: "2021-10-03",
-        //         confirmTime: "2021-10-04",
-        //         deliveryMethod: "顺丰",
-        //         status: 0,
-        //     },
-        //     {
-        //         id: 2,
-        //         title: "商品2",
-        //         price: 200,
-        //         gid: 2,
-        //         uid: 2,
-        //         num: 2,
-        //         address: "上海",
-        //         createTime: "2021-10-01",
-        //         payTime: "2021-10-02",
-        //         deliveryTime: "2021-10-03",
-        //         confirmTime: "2021-10-04",
-        //         deliveryMethod: "圆通",
-        //         status: 1,
-        //     },
-
-        const orders = ref()
+        let orders = ref()
         const getOrderData = async () => {
             //从服务器获取数据
 
-            orders.value = await httpIns.get("/getOrder")
-            console.log("success get orders:", orders)
+            const data = await httpIns.get("/getOrder")
+            orders.value = data.data.data.orders
             //todo 规范化 完成order的类型定义
         }
+        console.log("success get orders.value:", orders)
 
         return { orders, getOrderData }
     },

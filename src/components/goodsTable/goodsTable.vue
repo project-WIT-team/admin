@@ -73,6 +73,8 @@
     import qs from 'qs'
     import httpIns from '@/api/http';
     import { ElMessageBox } from 'element-plus'
+    import { ElNotification } from 'element-plus'
+
     const goodsStore = useGoodsListStore()
 
     //分页功能
@@ -119,6 +121,10 @@
                         console.log('delete:', id)
                         goodsStore.getGoodsData().then(() => {
                             location.reload();
+                            ElNotification({
+                                title: '删除成功',
+                                type: 'success',
+                            })
                         });
                     }
                 }).catch(err => {
@@ -145,14 +151,13 @@
                 httpIns.post('/hideGoods',
                     qs.stringify({ id }),
                 ).then(res => {
-                    console.log("请求res:", res);
-                    console.log("res.data.code:", res.data.code);
-                    console.log("res.data:", res.data);
-
-
                     if (res.data.code == 200) {
                         goodsStore.getGoodsData().then(() => {
                             location.reload();
+                            ElNotification({
+                                title: '下架成功',
+                                type: 'success',
+                            })
                         });
                     }
                 }).catch(err => {
@@ -180,6 +185,10 @@
                     if (res.data.code === 200) {
                         goodsStore.getGoodsData().then(() => {
                             location.reload();
+                            ElNotification({
+                                title: '上架成功',
+                                type: 'success',
+                            })
                         });
                     }
                 }).catch(err => {
@@ -189,6 +198,10 @@
             () => false
         )
     }
+
+
+
+
 
 </script>
 

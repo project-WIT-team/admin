@@ -69,7 +69,7 @@
             </el-upload>
 
             <el-form-item class="button">
-                <el-button type="primary" @click="onSubmit">提交</el-button>
+                <el-button type="primary" @click="editSubmit">提交</el-button>
                 <el-button @click="$router.push('/')">取消</el-button>
             </el-form-item>
         </el-form>
@@ -77,33 +77,20 @@
 </template>
 
 <script lang="ts" setup>
-    import { ref, reactive, onMounted } from 'vue'
-    import { ElMessageBox } from 'element-plus'
-    import type { UploadProps, UploadUserFile } from 'element-plus'
+    import { ref } from 'vue'
+    import type { UploadUserFile } from 'element-plus'
     import { UploadFilled } from '@element-plus/icons-vue'
     import httpIns from '@/api/http';
-    import qs from 'qs'
     import { useUserStore } from '@/stores/user';
     import { useRoute } from 'vue-router';
     import { useGoodsListStore } from '@/stores/goodsList';
-    import { ElMessage } from 'element-plus'
+    import useGoodsForm from '@/hooks/useGoodsForm';
+
+    const { form, editSubmit, removeBannerImg, removeDetailImg, beforeRemove, getBannerData, getDetailData } = useGoodsForm();
 
     const userStore = useUserStore();
     const route = useRoute();
     const goodsId = route.query.id;
-
-    const form = reactive({
-        id: goodsId,
-        title: '',
-        postage: 0,
-        type: '',//分类
-        price: 1,
-        cost: 1,
-        bank: 1,
-        place: '0',
-        BannerImg: [] as string[],
-        detailImg: [] as string[],
-    })
 
     const { goodsList } = useGoodsListStore()
 
@@ -121,29 +108,6 @@
         form.detailImg = goods.detailedImage.map((item: any) => item.path);
     }
 
-    //向服务器发送数据
-    const onSubmit = () => {
-        httpIns.post('/updateGoods',
-            qs.stringify(form),
-        ).then(res => {
-            console.log("请求res:", res);
-            if (res.data.code === 200) {
-                ElMessage({
-                    message: '修改成功！',
-                    type: 'success',
-                })
-            } else {
-                ElMessage({
-                    message: '修改失败！',
-                    type: 'error',
-                })
-            }
-
-        }).catch(err => {
-            console.log(err);
-        })
-    }
-
     /* 
     使用js的map 方法来将 goods.detailedImage 数组中的每个元素转换为 UploadUserFile 对象，然后将结果赋值给 bannerFile。
     使用了箭头函数来将每个image对象转换为一个UploadUserFile对象。
@@ -158,55 +122,7 @@
         url: `http://8.149.133.241:5868${image.path}`
     })))
 
-
-
-
-    const beforeRemove: UploadProps['beforeRemove'] = (uploadFile, uploadFiles) => {
-        return ElMessageBox.confirm(
-            `是否取消上传 ${uploadFile.name} ?`
-        ).then(
-            () => true,
-            () => false
-        )
-    }
-    const removeBannerImg: UploadProps['onRemove'] = (uploadFile, uploadFiles) => {
-        const url = uploadFile.url?.replace(/http:\/\/8\.149\.133\.241:5868/, '') ?? '';
-        const index = form.BannerImg.indexOf(url);
-        if (index !== -1) {
-            form.BannerImg.splice(index, 1);
-        }
-        console.log('处理图片：', uploadFile)
-        console.log("removed！the rest BannerImg:", form.BannerImg);
-    }
-
-    const removeDetailImg: UploadProps['onRemove'] = (uploadFile, uploadFiles) => {
-        const url = uploadFile.url?.replace(/http:\/\/8\.149\.133\.241:5868/, '') ?? '';
-        const index = form.detailImg.indexOf(url);
-        if (index !== -1) {
-            form.detailImg.splice(index, 1);
-        }
-        console.log('处理图片：', uploadFile)
-        console.log("removed！the rest detailImg:", form.detailImg);
-    }
-
-
-    const getBannerData = (response: any) => {
-        console.log("response:", response.data.imgPath);
-        //将后端返回的图片url保存到imgPath中
-        form.BannerImg.push(response.data.imgPath)
-        console.log("BannerImg:", form.BannerImg);
-    };
-
-
-    const getDetailData = (response: any, file: UploadUserFile, fileList: UploadUserFile[]) => {
-        //将后端返回的图片url保存到imgPath中
-        form.detailImg.push(response.data.imgPath)
-        console.log("detailImg:", form.detailImg);
-    };
-
-
-
-    // todo表单检测
+    //todo 表单检测
 </script>
 
 

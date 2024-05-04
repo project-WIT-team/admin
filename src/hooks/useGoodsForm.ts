@@ -1,8 +1,6 @@
-import { ref } from 'vue'
-import { ElMessage, ElMessageBox } from 'element-plus'
-import { UploadFilled } from '@element-plus/icons-vue'
-import type { UploadProps, UploadUserFile } from 'element-plus'
 
+import { ElMessage, ElMessageBox } from 'element-plus'
+import type { UploadProps, UploadUserFile } from 'element-plus'
 import { reactive } from 'vue'
 import httpIns from '@/api/http'
 import qs from 'qs'
@@ -19,7 +17,7 @@ export default function () {
         BannerImg: [] as string[],
         detailImg: [] as string[],
     })
-    const AddSubmit = () => {
+    const addSubmit = () => {
         httpIns.post('/addGoods',
             qs.stringify(form),
         ).then(res => {
@@ -35,6 +33,30 @@ export default function () {
                     type: 'error',
                 })
             }
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
+
+    //向服务器发送数据
+    const editSubmit = () => {
+        httpIns.post('/updateGoods',
+            qs.stringify(form),
+        ).then(res => {
+            console.log("请求res:", res);
+            if (res.data.code === 200) {
+                ElMessage({
+                    message: '修改成功！',
+                    type: 'success',
+                })
+            } else {
+                ElMessage({
+                    message: '修改失败！',
+                    type: 'error',
+                })
+            }
+
         }).catch(err => {
             console.log(err);
         })
@@ -85,8 +107,8 @@ export default function () {
         form.detailImg.push(response.data.imgPath)
         console.log("form.detailImg:", form.detailImg);
     };
-    // 把方法和数据返回出去
+
     return {
-        form, AddSubmit, removeBannerImg, removeDetailImg, beforeRemove, getBannerData, getDetailData,
+        form, editSubmit, addSubmit, removeBannerImg, removeDetailImg, beforeRemove, getBannerData, getDetailData,
     }
 }
