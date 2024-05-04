@@ -3,26 +3,22 @@
 
 import { defineStore } from "pinia"
 import { ref } from "vue"
-import { loginAPI } from "@/api/user"
+import httpIns from "@/api/http"
 
 export const useCustomerStore = defineStore(
     "customer",
     () => {
-        const customers = ref()
+        let customers = ref()
 
-        const getCustomerInfo = async () => {
-
+        const getCustomerData = async () => {
+            const res = await httpIns.get("/getUsers")
+            customers.value = res.data.data.users
+            console.log("顾客数据：", customers.value)
         }
 
-
-
-        const clearUserInfo = () => {
-
-        }
 
         return {
-            clearUserInfo,
-            getCustomerInfo,
+            getCustomerData,
             customers
         }
     },

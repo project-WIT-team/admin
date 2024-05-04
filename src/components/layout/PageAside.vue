@@ -2,8 +2,8 @@
 
     <el-header class="header">
         <el-menu class="el-menu" :default-active="activeIndex" mode="vertical" :ellipsis="false" @select="handleSelect"
-            router>
-            <el-menu-item :index="item.id" v-for="item in itemInHeader" class="item">{{ item.name }}</el-menu-item>
+            router text-color="#cfd9df" active-text-color="#6cb6fe">
+            <el-menu-item :index="item.id" v-for="item in itemInHeader">{{ item.name }}</el-menu-item>
         </el-menu>
     </el-header>
 </template>
@@ -26,7 +26,8 @@
     let itemInHeader = ref([
         { id: 'goodsTable', name: '商品列表', },
         { id: 'addGoods', name: '添加商品', },
-        { id: 'order', name: '订单', }
+        { id: 'order', name: '订单管理', },
+        { id: 'customer', name: '用户信息', }
 
     ])
 </script>

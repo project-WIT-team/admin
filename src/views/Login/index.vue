@@ -25,8 +25,8 @@
     //将账号密码传给后端进行验证
     //当验证成功,跳转到首页
     let data = reactive({
-        username: 'admin',
-        password: '123456'
+        username: '',
+        password: ''
     })
     const router = useRouter()
 

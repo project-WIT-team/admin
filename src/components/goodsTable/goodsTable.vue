@@ -86,7 +86,6 @@
     function getTableData() {
         currentTableData.value = goodsStore.goodsList.slice((page.value - 1) * pageSize.value, page.value * pageSize.value)
         totalData.value = goodsStore.goodsList.length
-        console.log("当前页数据信息:", currentTableData.value);
     }
 
     function sizeChange(value: number) {

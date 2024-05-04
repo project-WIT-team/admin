@@ -28,15 +28,11 @@ export const useOrderStore = defineStore(
     "order",
     () => {
         let orders = ref()
-        const getOrderData = async () => {
-            //从服务器获取数据
 
+        const getOrderData = async () => {
             const data = await httpIns.get("/getOrder")
             orders.value = data.data.data.orders
-            //todo 规范化 完成order的类型定义
         }
-        console.log("success get orders.value:", orders)
-
         return { orders, getOrderData }
     },
     {

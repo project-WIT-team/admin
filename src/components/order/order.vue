@@ -1,17 +1,32 @@
 <template>
     <div class="centered-content">
-        <el-table class="table" :data="currentTableData" border :cell-style="{ textAlign: 'center' }">
-            <el-table-column prop="id" label="订单号" width="90" />
+        <el-table class="table" :data="currentTableData" border :cell-style="{ textAlign: 'center' }"
+            :header-cell-style="{ 'text-align': 'center' }">
+            <el-table-column prop="id" label="订单号" width="100" sortable />
             <el-table-column prop="title" label="名称" width="200"
                 :formatter="(row: Goods) => (row.title.length > 26 ? row.title.substring(0, 26) + '...' : row.title)" />
             <el-table-column prop="price" label="付款金额" sortable width="110" />
-            <el-table-column prop="gid" label="商品id" width="110" />
+            <el-table-column prop="gid" label="商品id" width="80" />
             <el-table-column prop="createTime" label="创建时间" width="110" />
-            <el-table-column prop="PayTime" label="支付时间" width="110" />
-            <el-table-column prop="storage" label="购买数量" sortable width="110" />
+            <el-table-column prop="payTime" label="支付时间" width="110" />
+            <el-table-column prop="num" label="数量" sortable width="80" />
             <el-table-column prop="uid" label="用户id" width="110" />
             <el-table-column prop="deliveryMethod" label="快递方式" width="110" />
-            <el-table-column prop="status" label="状态" width="100" />
+            <el-table-column prop="" label="图片">
+                <template #="scope">
+                    <el-image :src="`http://8.149.133.241:5868${scope.row.img}`" fit="cover"></el-image>
+                </template>
+            </el-table-column>
+            <el-table-column prop="status" label="状态" width="100">
+                <template #="scope">
+                    <el-tag v-if="scope.row.status === 1" type="warning">待支付</el-tag>
+                    <el-tag v-else-if="scope.row.status === 2" effect="dark" type='warning'>已支付</el-tag>
+                    <el-tag v-else-if="scope.row.status === 3" effect="dark" type="primary">已发货</el-tag>
+                    <el-tag v-else-if="scope.row.status === 0" effect="dark" type="success">已完成</el-tag>
+                    <el-tag v-else-if="scope.row.status === 44" effect="dark" type="danger">已删除</el-tag>
+                    <el-tag v-else type="info">未知</el-tag>
+                </template>
+            </el-table-column>
         </el-table>
         <!-- 分页 -->
         <el-pagination class="pagination" @size-change="sizeChange" @current-change="currentChange" :current-page="page"

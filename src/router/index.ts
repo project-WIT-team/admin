@@ -34,11 +34,16 @@ const router = createRouter({
                     component: () => import("@/components/test.vue"),
                 },
                 {
-                    path: "/edit",
+                    path: "edit",
                     name: "编辑",
                     component: () => import("@/components/editGoods/editGoods.vue"),
                     props: (route) => route.query,
                 },
+                {
+                    path: 'customer',
+                    name: "顾客列表",
+                    component: () => import('@/components/customer/customer.vue')
+                }
             ],
         },
 

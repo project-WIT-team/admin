@@ -1,78 +1,138 @@
 <template>
-    <div class="content">
-        <h2 class="title">添加商品</h2>
-        <el-form :model="form" label-width="auto" enctype="multipart/form-data" style="max-width: 600px"
-            scroll-to-error>
-            <el-form-item label="商品主页标题">
-                <!-- <el-input v-model="form.title" /> -->
-                <el-input v-model="form.title" maxlength="70" style="width: 300px" show-word-limit type="textarea" />
-            </el-form-item>
-
-            <el-form-item label="商品价格">
-                <!-- <el-input v-model="form.price" /> -->
-                <el-input-number v-model="form.price" :min="0.01" />
-            </el-form-item>
-
-            <el-form-item label="商品成本">
-                <!-- <el-input v-model="form.cost" /> -->
-                <el-input-number v-model="form.cost" :min="0.01" />
-            </el-form-item>
-
-            <el-form-item label="库存量">
-                <!-- <el-input v-model="form.bank" /> -->
-                <el-input-number v-model="form.bank" :min="0" />
-            </el-form-item>
-
-            <el-form-item label="显示位置">
-                <el-radio-group v-model="form.place">
-                    <el-radio value="1">首页推送</el-radio>
-                    <el-radio value="0">不推送</el-radio>
-                </el-radio-group>
-            </el-form-item>
-
-            <el-form-item label="分类">
-                <el-input v-model="form.type" style="max-width: 150px" />
-            </el-form-item>
-
-            <el-form-item label="邮费(为0时包邮)">
-                <el-input-number v-model="form.postage" :min="0" />
-            </el-form-item>
-
-            <!-- 轮播图上传 -->
-            <el-upload :action="httpIns.defaults.baseURL + '/uploadImg'"
-                :headers="{ 'Authorization': userStore.userInfo.token }" method="post" v-model:file-list="bannerFile"
-                multiple list-type="picture" :on-success="getBannerData" :before-remove="beforeRemove"
-                :on-remove="removeBannerImg" drag>
-                <el-icon class="el-icon--upload"><upload-filled /></el-icon>
-                <div class="el-upload__text">
-                    上传轮播图:
-                    拖拽图片或<em>点击上传</em>
-                </div>
-            </el-upload>
+    <!-- table -->
+    <div class="centered-content">
+        <el-table class="table" :data="currentTableData" border :cell-style="{ textAlign: 'center' }"
+            :header-cell-style="{ 'text-align': 'center' }">
+            <el-table-column prop="id" label="id" width="50" />
+            <el-table-column prop="username" label="用户名" width="100" />
+            <el-table-column prop="nickname" label="昵称" sortable width="120" />
+            <el-table-column prop="addr" label="地址" sortable width="200" />
+            <el-table-column prop="email" label="邮箱" sortable width="150" />
+            <el-table-column prop="phone" label="手机号" sortable width="130" />
+            <el-table-column prop="status" label="状态" width="100">
+                <template #="scope">
+                    <el-tag v-if="scope.row.status === 1" type="success">已绑定</el-tag>
+                    <el-tag v-else-if="scope.row.place === 2" type="danger">未绑定</el-tag>
+                    <el-tag v-else type="primary">未知</el-tag>
+                </template>
+            </el-table-column>
+            <!-- 删除 -->
+            <el-table-column label="" width="90">
+                <template #="scope">
+                    <el-button @click="deleteItemById(scope.row.id)" type="danger" :icon="Delete" circle />
+                </template>
+            </el-table-column>
 
 
-            <!-- 详情图上传 -->
-            <el-upload :action="httpIns.defaults.baseURL + '/uploadImg'"
-                :headers="{ 'Authorization': userStore.userInfo.token }" method="post" v-model:file-list="detailFile"
-                multiple list-type="picture" :on-success="getDetailData" :before-remove="beforeRemove"
-                :on-remove="removeDetailImg" drag>
-                <el-icon class="el-icon--upload"><upload-filled /></el-icon>
-                <div class="el-upload__text">
-                    上传详情图:
-                    拖拽图片或<em>点击上传</em>
-                </div>
-            </el-upload>
+        </el-table>
+        <!-- 分页 -->
+        <el-pagination class="pagination" @size-change="sizeChange" @current-change="currentChange" :current-page="page"
+            :page-size="pageSize" :pager-count="7" layout="prev, pager, next" :total="totalData" background>
+        </el-pagination>
 
-            <el-form-item class="button">
-                <el-button type="primary" @click="addSubmit">提交</el-button>
-                <el-button @click="$router.push('/')">取消</el-button>
-            </el-form-item>
-        </el-form>
     </div>
 </template>
 
 <script lang="ts" setup>
-    import { useUserStore } from '@/stores/user';
+    import {
+        Check,
+        Delete,
+        Edit,
+        Message,
+        Search,
+        Star,
+    } from '@element-plus/icons-vue'
+    import type Goods from '@/interface/goods'
+    import { ref } from 'vue';
+    import qs from 'qs'
+    import httpIns from '@/api/http';
+    import { ElMessageBox } from 'element-plus'
+    import { ElNotification } from 'element-plus'
+    import { useCustomerStore } from '@/stores/customer';
+
+    const { customers, getCustomerData } = useCustomerStore()
+
+    getCustomerData()
+    console.log("!!用户信息:", customers);
+
+    //分页功能
+    let page = ref(1)//当前页
+    let pageSize = ref(12)//每页显示的数目
+    let totalData = ref()//数据总数
+    let currentTableData = ref();//一面的数据
+    //获取表格数据,自动分页
+    function getTableData() {
+        currentTableData.value = customers.slice((page.value - 1) * pageSize.value, page.value * pageSize.value)
+        totalData.value = customers.length
+        console.log("当前页数据信息:", currentTableData.value);
+    }
+
+    function sizeChange(value: number) {
+        pageSize.value = value
+        page.value = 1
+        getTableData()
+    }
+
+    function currentChange(value: number) {
+        page.value = value
+        getTableData()
+    }
+
+    getTableData()
+
+    function deleteItemById(id: number) {
+        ElMessageBox.confirm(
+            `是否删除用户？`,
+            {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning',
+            }
+        ).then(
+            () => {
+                httpIns.post('/deleteUser',
+                    qs.stringify({ id }),
+                ).then((res) => {
+                    if (res.data.code === 200) {
+                        getCustomerData().then(() => {
+                            // location.reload();
+                            ElNotification({
+                                title: '删除成功',
+                                type: 'success',
+                            })
+                        });
+                    }
+                }).catch(err => {
+                    console.log(err);
+                })
+            },
+            () => false
+        )
+    }
+
+
+
+
+
 
 
 </script>
+
+<style lang="scss" scoped>
+    .table {
+        display: inline-block
+    }
+
+    .pagination {
+        display: flex;
+        align-items: center;
+    }
+
+    .centered-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+
+</style>
