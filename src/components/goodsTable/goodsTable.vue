@@ -4,9 +4,18 @@
         <el-table class="table" :data="currentTableData" border :cell-style="{ textAlign: 'center' }"
             :header-cell-style="{ 'text-align': 'center' }">
             <el-table-column prop="id" label="id" width="50" />
-            <el-table-column prop="title" label="名称" width="200"
-                :formatter="(row: any) => (row.title.length > 26 ? row.title.substring(0, 26) + '...' : row.title)" />
+            <!-- <el-table-column prop="title" label="名称" width="200"
+                :formatter="(row: any) => (row.title.length > 26 ? row.title.substring(0, 26) + '...' : row.title)" /> -->
+            <el-table-column prop="title" label="名称" width="200">
+                <template #default="scope">
+                    <el-tooltip class="item" effect="dark" :content="scope.row.title" placement="top">
+                        <span>{{ scope.row.title.length > 30 ? scope.row.title.substring(0, 30) + '...' :
+                            scope.row.title }}</span>
+                    </el-tooltip>
+                </template>
+            </el-table-column>
             <el-table-column prop="price" label="价格" sortable width="80" />
+
             <el-table-column prop="bank" label="库存" sortable width="80" />
             <el-table-column prop="salesVolume" label="销量" sortable width="80" />
             <el-table-column prop="type" label="分类" sortable width="100" />
@@ -20,9 +29,9 @@
             </el-table-column>
 
             <!-- 默认插槽，作用域为scope，在插槽中的代码能够访问scope，包含三个属性：row、column、$index -->
-            <el-table-column prop="" label="图片">
+            <el-table-column prop="" label="图片" width="120px">
                 <template #="scope">
-                    <el-image style="width: 100px; height: 100px" zoom-scale="1.2"
+                    <el-image style="height: 100px; width:100px" zoom-scale="1.2"
                         :src="`http://8.149.133.241:5868${scope.row.mainImage}`"
                         :preview-src-list="scope.row.topImage.map((image: any) => `http://8.149.133.241:5868${image.path}`)"
                         :zoom-rate="1.2" fit="cover" preview-teleported></el-image>
@@ -77,22 +86,8 @@
     import { ElMessageBox } from 'element-plus'
     import { ElNotification } from 'element-plus'
     import { onMounted } from 'vue';
-    import { computed } from 'vue';
-
 
     const goodsStore = useGoodsListStore()
-
-    // const srcList = [
-    //     'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
-    //     'https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg',
-    //     'https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg',
-    //     'https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg',
-    //     'https://fuss10.elemecdn.com/d/e6/c4d93a3805b3ce3f323f7974e6f78jpeg.jpeg',
-    //     'https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg',
-    //     'https://fuss10.elemecdn.com/2/11/6535bcfb26e4c79b48ddde44f4b6fjpeg.jpeg',
-    // ]
-
-
 
 
     //分页功能

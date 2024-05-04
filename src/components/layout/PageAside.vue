@@ -3,7 +3,7 @@
     <el-header class="header">
         <el-menu class="el-menu" :default-active="activeIndex" mode="vertical" :ellipsis="false" @select="handleSelect"
             router text-color="#cfd9df" active-text-color="#6cb6fe">
-            <el-menu-item :index="item.id" v-for="item in itemInHeader"><el-icon>
+            <el-menu-item :index="item.id" v-for="item in itemInHeader" class="item"><el-icon>
                     <component :is="item.icon" />
                 </el-icon>{{ item.name }}</el-menu-item>
         </el-menu>
@@ -32,6 +32,11 @@
 <style scoped>
     .flex-grow {
         flex-grow: 1;
+    }
+
+    .item {
+        padding: 0;
+        margin: 0;
     }
 
     .el-menu {

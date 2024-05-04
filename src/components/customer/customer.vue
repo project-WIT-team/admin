@@ -49,10 +49,7 @@
     import { ElNotification } from 'element-plus'
     import { useCustomerStore } from '@/stores/customer';
     import { onMounted } from 'vue';
-
     const { customers, getCustomerData } = useCustomerStore()
-
-
 
     //分页功能
     let page = ref(1)//当前页

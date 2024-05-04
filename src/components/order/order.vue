@@ -3,8 +3,14 @@
         <el-table class="table" :data="currentTableData" border :cell-style="{ textAlign: 'center' }"
             :header-cell-style="{ 'text-align': 'center' }">
             <el-table-column prop="id" label="订单号" width="100" sortable />
-            <el-table-column prop="title" label="名称" width="200"
-                :formatter="(row: any) => (row.title.length > 26 ? row.title.substring(0, 26) + '...' : row.title)" />
+            <el-table-column prop="title" label="名称" width="200">
+                <template #default="scope">
+                    <el-tooltip class="item" effect="dark" :content="scope.row.title" placement="top">
+                        <span>{{ scope.row.title.length > 30 ? scope.row.title.substring(0, 30) + '...' :
+                            scope.row.title }}</span>
+                    </el-tooltip>
+                </template>
+            </el-table-column>
             <el-table-column prop="price" label="付款金额" sortable width="110" />
             <el-table-column prop="gid" label="商品id" width="80" />
             <el-table-column prop="createTime" label="创建时间" width="110" />
@@ -12,7 +18,7 @@
             <el-table-column prop="num" label="数量" sortable width="80" />
             <el-table-column prop="uid" label="用户id" width="110" />
             <el-table-column prop="deliveryMethod" label="快递方式" width="110" />
-            <el-table-column prop="" label="图片">
+            <el-table-column prop="" label="图片" width="120">
                 <template #="scope">
                     <el-image :src="`http://8.149.133.241:5868${scope.row.img}`" fit="cover"></el-image>
                 </template>
@@ -27,7 +33,22 @@
                     <el-tag v-else type="info">未知</el-tag>
                 </template>
             </el-table-column>
+            <!-- 编辑 -->
+            <el-table-column prop="" label="">
+                <!-- <template #="scope"> -->
+                <!-- <el-button @click="editOrder(scope.row.id)" type="primary" :icon="Edit" circle /> -->
+                <el-drawer v-model="drawer" :direction="direction"> </el-drawer>
+                <el-button @click="drawer = true" type="primary" :icon="Edit" circle />
+
+
+                <!-- </template> -->
+
+
+            </el-table-column>
+
+
         </el-table>
+
         <!-- 分页 -->
         <el-pagination class="pagination" @size-change="sizeChange" @current-change="currentChange" :current-page="page"
             :page-size="pageSize" :pager-count="7" layout="prev, pager, next" :total="totalData" background>
@@ -39,6 +60,14 @@
     import { useOrderStore } from '@/stores/order';
     import { ref } from 'vue';
     import { onMounted } from 'vue';
+    import {
+        Check,
+        Delete,
+        Edit,
+        Message,
+        Search,
+        Star,
+    } from '@element-plus/icons-vue'
     const { orders, getOrderData } = useOrderStore();
 
     //分页功能
@@ -64,6 +93,20 @@
         getTableData()
     }
 
+
+    const editOrder = (id: number) => {
+        console.log("编辑订单", id);
+
+    }
+
+    // 抽屉
+    import type { DrawerProps } from 'element-plus'
+
+    const drawer = ref(false)
+
+    const direction = ref<DrawerProps['direction']>('ttb')
+
+
     onMounted(async () => {
         await getOrderData();
         getTableData();
@@ -74,9 +117,6 @@
 </script>
 
 <style lang="scss" scoped>
-    .table {
-        display: inline-block
-    }
 
     .pagination {
         display: flex;

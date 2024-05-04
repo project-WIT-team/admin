@@ -3,10 +3,10 @@
         <el-form ref="formRef" class="sign-up" :model="data" :rules="rules" status-icon>
             <h1 class="sign-up-title">商城后台管理系统</h1>
             <el-form-item prop="username" label="账户">
-                <el-input v-model="data.username" />
+                <el-input v-model="data.username" autocomplete="off" />
             </el-form-item>
             <el-form-item prop="password" label="密码">
-                <el-input v-model="data.password" />
+                <el-input v-model="data.password" type="password" autocomplete="off" />
             </el-form-item>
             <el-button size="large" class="sign-up-button" @click="doLogin()">点击登录</el-button>
         </el-form>
