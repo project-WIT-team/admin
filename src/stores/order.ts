@@ -28,7 +28,7 @@ import { computed } from "vue"
 export const useOrderStore = defineStore(
     "order",
     () => {
-        let orders = ref()
+        let orders = ref([])
         let orderToShip = computed(() => orders.value.filter((order: any) => order.status === 2));
         let numberToShip = computed(() => orderToShip.value.length);
 
