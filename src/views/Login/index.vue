@@ -92,11 +92,12 @@
     .sign-up {
         position: relative;
         margin: auto;
-        width: 280px;
+        width: 300px;
+        height: auto;
         padding: 33px 25px 29px;
         background: white;
         border-bottom: 1px solid #c4c4c4;
-        border-radius: 5px;
+        border-radius: 10px;
         -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
         box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
 

@@ -34,7 +34,6 @@ httpIns.interceptors.request.use(
 httpIns.interceptors.response.use(
     (res) => res,
     (e) => {
-        console.log(e.response)
         //token失效处理
         if (e.response.status === 466) {
             ElMessage({
@@ -44,11 +43,20 @@ httpIns.interceptors.response.use(
             const userStore = useUserStore()
             userStore.clearUserInfo()
             router.push("/login")
-            //密码错误处理
-        } else if (e.response.status === 401) {
+
+        }
+        //密码错误处理
+        else if (e.response.status === 401) {
             ElMessage({
                 type: "error",
                 message: "密码错误",
+            })
+            router.push("/login")
+        }
+        else {
+            ElMessage({
+                type: "error",
+                message: "网络错误",
             })
             router.push("/login")
         }

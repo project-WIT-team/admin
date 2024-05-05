@@ -39,7 +39,6 @@ export default function () {
     }
 
 
-    //向服务器发送数据
     const editSubmit = () => {
         httpIns.post('/updateGoods',
             qs.stringify(form),
