@@ -55,7 +55,6 @@ const router = createRouter({
                     path: 'editDelivery',
                     name: "编辑发货信息",
                     component: () => import('@/components/shipOrder/editDelivery/editDelivery.vue'),
-                    // props: (route) => route.query,
                 }
             ],
         },
