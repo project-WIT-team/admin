@@ -43,7 +43,13 @@
                     <el-tag v-else type="info">未知</el-tag>
                 </template>
             </el-table-column>
-            <!-- 编辑 -->
+            <!-- 删除 -->
+            <el-table-column label="" width="90">
+                <template #="scope">
+                    <el-button v-if="scope.row.status != 44" @click="deleteOrderById(scope.row.id)" type="danger"
+                        :icon="Delete" circle />
+                </template>
+            </el-table-column>
 
 
         </el-table>
@@ -59,6 +65,10 @@
     import { useOrderStore } from '@/stores/order';
     import { ref } from 'vue';
     import { onMounted } from 'vue';
+    import { ElMessageBox } from 'element-plus'
+    import { ElNotification } from 'element-plus'
+    import httpIns from '@/api/http';
+    import qs from 'qs'
     import {
         Check,
         Delete,
@@ -68,6 +78,38 @@
         Star,
     } from '@element-plus/icons-vue'
     const { orders, getOrderData } = useOrderStore();
+
+    const deleteOrderById = (id: number) => {
+        ElMessageBox.confirm(
+            `是否删除订单？`,
+            {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning',
+            }
+        ).then(
+            () => {
+                httpIns.post('/deleteOrder',
+                    qs.stringify({ id }),
+                ).then((res) => {
+                    console.log("请求res:", res);
+                    if (res.data.code === 200) {
+                        console.log('delete:', id)
+                        getOrderData().then(() => {
+                            location.reload();
+                            ElNotification({
+                                title: '删除成功',
+                                type: 'success',
+                            })
+                        });
+                    }
+                }).catch(err => {
+                    console.log(err);
+                })
+            },
+            () => false
+        )
+    }
 
     //分页功能
     let page = ref(1)//当前页

@@ -24,13 +24,21 @@
 
         <el-form-item label="显示位置">
             <el-radio-group v-model="form.place">
-                <el-radio value="1">首页推送</el-radio>
-                <el-radio value="0">不推送</el-radio>
+                <el-radio :value="1">首页推送</el-radio>
+                <el-radio :value="0">不推送</el-radio>
             </el-radio-group>
         </el-form-item>
 
         <el-form-item label="分类">
-            <el-input v-model="form.type" style="max-width: 150px" />
+            <el-select v-model="form.type" placeholder="请选择分类" style="width: 300px">
+                <el-option label="手机" value="手机" />
+                <el-option label="电脑" value="电脑" />
+                <el-option label="平板" value="平板" />
+                <el-option label="男装" value="男装" />
+                <el-option label="女装" value="女装" />
+                <el-option label="电器" value="电器" />
+                <el-option label="食品" value="食品" />
+            </el-select>
         </el-form-item>
 
         <el-form-item label="邮费(为0时包邮)">

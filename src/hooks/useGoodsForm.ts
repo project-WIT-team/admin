@@ -4,9 +4,13 @@ import type { UploadProps, UploadUserFile } from 'element-plus'
 import { reactive } from 'vue'
 import httpIns from '@/api/http'
 import qs from 'qs'
+import { useRouter } from 'vue-router'
+
+
 
 export default function () {
     const form = reactive({
+        id: 0,
         title: '',
         postage: 0,
         type: '',//分类
@@ -17,16 +21,20 @@ export default function () {
         BannerImg: [] as string[],
         detailImg: [] as string[],
     })
+
+    const router = useRouter()
+
     const addSubmit = () => {
         httpIns.post('/addGoods',
             qs.stringify(form),
         ).then(res => {
-            console.log("请求res:", res);
+
             if (res.data.code === 200) {
                 ElMessage({
                     message: '添加成功！',
                     type: 'success',
                 })
+                router.push({ name: '商品列表' })
             } else {
                 ElMessage({
                     message: '添加失败！',
@@ -43,12 +51,15 @@ export default function () {
         httpIns.post('/updateGoods',
             qs.stringify(form),
         ).then(res => {
-            console.log("请求res:", res);
+
             if (res.data.code === 200) {
                 ElMessage({
                     message: '修改成功！',
                     type: 'success',
                 })
+                router.push({ name: '商品列表' })
+
+
             } else {
                 ElMessage({
                     message: '修改失败！',
@@ -68,7 +79,7 @@ export default function () {
         if (index !== -1) {
             form.BannerImg.splice(index, 1);
         }
-        console.log('处理：', uploadFile)
+
         console.log("removed！the rest BannerImg:", form.BannerImg);
     }
 
@@ -78,7 +89,7 @@ export default function () {
         if (index !== -1) {
             form.detailImg.splice(index, 1);
         }
-        console.log('处理：', uploadFile)
+
         console.log("removed！the rest detailImg:", form.detailImg);
     }
 
@@ -94,8 +105,7 @@ export default function () {
     }
 
     const getBannerData = (response: any, file: UploadUserFile, fileList: UploadUserFile[]) => {
-        // 服务器返回的响应保存在 response 参数中
-        console.log("response", response.data.imgPath);
+
         //将后端返回的图片路径保存到imgPath中
         form.BannerImg.push(response.data.imgPath)
         console.log("form.BannerImg:", form.BannerImg);

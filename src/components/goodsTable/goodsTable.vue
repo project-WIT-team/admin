@@ -4,8 +4,6 @@
         <el-table class="table" :data="currentTableData" border :cell-style="{ textAlign: 'center' }"
             :header-cell-style="{ 'text-align': 'center' }">
             <el-table-column prop="id" label="id" width="50" />
-            <!-- <el-table-column prop="title" label="名称" width="200"
-                :formatter="(row: any) => (row.title.length > 26 ? row.title.substring(0, 26) + '...' : row.title)" /> -->
             <el-table-column prop="title" label="名称" width="200">
                 <template #default="scope">
                     <el-tooltip class="item" effect="dark" :content="scope.row.title" placement="top">
@@ -59,8 +57,15 @@
                         :icon="Edit" circle />
                 </template>
             </el-table-column>
-
+            <!-- 添加样式 -->
+            <!-- <el-table-column label="" width="90">
+                <template #="scope">
+                    <el-button @click="drawer = true" type="warning" :icon="Plus" circle />
+                </template>
+            </el-table-column> -->
         </el-table>
+        <!-- 样式表单 -->
+
         <!-- 分页 -->
         <el-pagination v-if="totalData" class="pagination" @size-change="sizeChange" @current-change="currentChange"
             :current-page="page" :page-size="pageSize" :pager-count="7" layout="prev, pager, next" :total="totalData"
@@ -78,6 +83,7 @@
         Message,
         Search,
         Star,
+        Plus
     } from '@element-plus/icons-vue'
     import { useGoodsListStore } from '@/stores/goodsList';
     import { ref } from 'vue';
@@ -86,8 +92,18 @@
     import { ElMessageBox } from 'element-plus'
     import { ElNotification } from 'element-plus'
     import { onMounted } from 'vue';
+    import { reactive } from 'vue';
+
+
+
+
+
+
 
     const goodsStore = useGoodsListStore()
+    const drawer = ref(false)
+
+
 
 
     //分页功能
@@ -112,10 +128,7 @@
         getTableData()
     }
 
-
-
     function deleteItemById(id: number) {
-
         ElMessageBox.confirm(
             `是否删除商品？`,
             {

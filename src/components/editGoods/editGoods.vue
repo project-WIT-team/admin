@@ -24,17 +24,22 @@
 
         <el-form-item label="显示位置">
             <el-radio-group v-model="form.place">
-                <el-radio value="1">首页推送</el-radio>
-                <el-radio value="0">不推送</el-radio>
+                <el-radio :value="1">首页推送</el-radio>
+                <el-radio :value="0">不推送</el-radio>
             </el-radio-group>
         </el-form-item>
 
         <el-form-item label="分类">
-            <!-- <el-select v-model="form.type" placeholder="请选择分类" style="width: 300px">
-                    <el-option label="电子产品" value="电子产品" />
-                    <el-option label="生活用品" value="生活用品" />
-                </el-select> -->
-            <el-input v-model="form.type" style="max-width: 150px" />
+            <el-select v-model="form.type" placeholder="请选择分类" style="width: 300px">
+                <el-option label="手机" value="手机" />
+                <el-option label="电脑" value="电脑" />
+                <el-option label="平板" value="平板" />
+                <el-option label="男装" value="男装" />
+                <el-option label="女装" value="女装" />
+                <el-option label="电器" value="电器" />
+                <el-option label="食品" value="食品" />
+            </el-select>
+
         </el-form-item>
 
         <el-form-item label="邮费(为0时包邮)">
@@ -72,6 +77,14 @@
         <el-button @click="$router.push('/')">取消</el-button>
     </div>
 
+    <!-- <el-button type="primary" style="margin-left: 16px" @click="drawer = true">
+        open
+    </el-button>
+
+    <el-drawer v-model="drawer" title="I am the title" :with-header="false">
+        <span>Hi there!</span>
+    </el-drawer> -->
+
 </template>
 
 <script lang="ts" setup>
@@ -83,7 +96,7 @@
     import { useRoute } from 'vue-router';
     import { useGoodsListStore } from '@/stores/goodsList';
     import useGoodsForm from '@/hooks/useGoodsForm';
-
+    const drawer = ref(false)
     const { form, editSubmit, removeBannerImg, removeDetailImg, beforeRemove, getBannerData, getDetailData } = useGoodsForm();
 
     const userStore = useUserStore();
@@ -95,6 +108,7 @@
     //在goodsList查找id为goodsId的商品，并将form的值设置为该商品的值
     const goods = goodsList.find((item: any) => item.id == goodsId);
     if (goods) {
+        form.id = goods.id;
         form.title = goods.title;
         form.postage = goods.postage;
         form.type = goods.type;
@@ -119,6 +133,9 @@
         name: '',
         url: `http://8.149.133.241:5868${image.path}`
     })))
+
+
+
 
 </script>
 

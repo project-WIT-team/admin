@@ -6,8 +6,9 @@ import { useUserStore } from "@/stores/user"
 
 const httpIns = axios.create({
     baseURL: "http://8.149.133.241:5868/admin",
-
-    // baseURL: "http://localhost:8080/admin",
+    //服务器
+    // baseURL: "http://192.168.1.106:8081/admin",
+    //电脑
     timeout: 5000,
 })
 
@@ -58,7 +59,6 @@ httpIns.interceptors.response.use(
                 type: "error",
                 message: "网络错误",
             })
-            router.push("/login")
         }
 
         return Promise.reject(e)
