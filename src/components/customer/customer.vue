@@ -11,8 +11,8 @@
             <el-table-column prop="phone" label="手机号" sortable width="130" />
             <el-table-column prop="status" label="状态" width="100">
                 <template #="scope">
-                    <el-tag v-if="scope.row.status === 1" type="success">已绑定</el-tag>
-                    <el-tag v-else-if="scope.row.status === 2" type="info">未绑定</el-tag>
+                    <el-tag v-if="scope.row.status === 1" type="info">未绑定</el-tag>
+                    <el-tag v-else-if="scope.row.status === 2" type="success">已绑定</el-tag>
                     <el-tag v-else-if="scope.row.status === 44" type="danger">已封号</el-tag>
                     <el-tag v-else type="primary">未知</el-tag>
                 </template>
