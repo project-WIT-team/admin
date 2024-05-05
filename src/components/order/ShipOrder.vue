@@ -99,15 +99,11 @@
     }
 
 
-    const editOrder = (id: number) => {
-        console.log("编辑订单", id);
 
-    }
 
     // 抽屉
     import type { DrawerProps } from 'element-plus'
 
-    const drawer = ref(false)
 
     const direction = ref<DrawerProps['direction']>('ttb')
 

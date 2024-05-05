@@ -57,14 +57,8 @@
                         :icon="Edit" circle />
                 </template>
             </el-table-column>
-            <!-- 添加样式 -->
-            <!-- <el-table-column label="" width="90">
-                <template #="scope">
-                    <el-button @click="drawer = true" type="warning" :icon="Plus" circle />
-                </template>
-            </el-table-column> -->
+
         </el-table>
-        <!-- 样式表单 -->
 
         <!-- 分页 -->
         <el-pagination v-if="totalData" class="pagination" @size-change="sizeChange" @current-change="currentChange"
@@ -77,13 +71,8 @@
 
 <script lang="ts" setup>
     import {
-        Check,
         Delete,
         Edit,
-        Message,
-        Search,
-        Star,
-        Plus
     } from '@element-plus/icons-vue'
     import { useGoodsListStore } from '@/stores/goodsList';
     import { ref } from 'vue';
@@ -92,29 +81,20 @@
     import { ElMessageBox } from 'element-plus'
     import { ElNotification } from 'element-plus'
     import { onMounted } from 'vue';
-    import { reactive } from 'vue';
-
-
-
-
-
 
 
     const goodsStore = useGoodsListStore()
-    const drawer = ref(false)
-
-
 
 
     //分页功能
     let page = ref(1)//当前页
-    let pageSize = ref(12)//每页显示的数目
+    let pageSize = ref(10)//每页显示的数目
     let totalData = ref(1)//数据总数
     let currentTableData = ref();//一面的数据
     //获取表格数据,自动分页
     function getTableData() {
         currentTableData.value = goodsStore.goodsList.slice((page.value - 1) * pageSize.value, page.value * pageSize.value)
-        totalData.value = parseInt(goodsStore.goodsList.length)
+        totalData.value = goodsStore.goodsList.length
     }
 
     function sizeChange(value: number) {

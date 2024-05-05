@@ -27,12 +27,6 @@ const router = createRouter({
                     name: "订单列表",
                     component: () => import("@/components/order/Order.vue"),
                 },
-
-                {
-                    path: "test",
-                    name: "测试",
-                    component: () => import("@/components/test.vue"),
-                },
                 {
                     path: "edit",
                     name: "编辑",
@@ -58,7 +52,6 @@ const router = createRouter({
                 }
             ],
         },
-
         {
             path: "/login",
             name: "登录",

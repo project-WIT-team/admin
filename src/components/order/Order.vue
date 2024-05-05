@@ -54,7 +54,7 @@
 
         <!-- 分页 -->
         <el-pagination class="pagination" @size-change="sizeChange" @current-change="currentChange" :current-page="page"
-            :page-size="pageSize" :pager-count="7" layout="prev, pager, next" :total="totalData" background>
+            :page-size="pageSize" :pager-count="pageCount" layout="prev, pager, next" :total="totalData" background>
         </el-pagination>
     </div>
 </template>
@@ -112,6 +112,7 @@
     //分页功能
     let page = ref(1)//当前页
     let pageSize = ref(10)//每页显示的数目
+    let pageCount= ref(7)//分页的最大按钮数
     let totalData = ref(1)//数据总数
     let currentTableData = ref();//一面的数据
     //获取表格数据,自动分页

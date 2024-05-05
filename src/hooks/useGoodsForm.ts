@@ -73,7 +73,7 @@ export default function () {
     }
 
 
-    const removeBannerImg: UploadProps['onRemove'] = (uploadFile, uploadFiles) => {
+    const removeBannerImg: UploadProps['onRemove'] = (uploadFile, ) => {
         const url = uploadFile.url?.replace(/http:\/\/8\.149\.133\.241:5868/, '') ?? '';
         const index = form.BannerImg.indexOf(url);
         if (index !== -1) {
@@ -83,7 +83,7 @@ export default function () {
         console.log("removed！the rest BannerImg:", form.BannerImg);
     }
 
-    const removeDetailImg: UploadProps['onRemove'] = (uploadFile, uploadFiles) => {
+    const removeDetailImg: UploadProps['onRemove'] = (uploadFile, ) => {
         const url = uploadFile.url?.replace(/http:\/\/8\.149\.133\.241:5868/, '') ?? '';
         const index = form.detailImg.indexOf(url);
         if (index !== -1) {
@@ -95,7 +95,7 @@ export default function () {
 
 
 
-    const beforeRemove: UploadProps['beforeRemove'] = (uploadFile, uploadFiles) => {
+    const beforeRemove: UploadProps['beforeRemove'] = (uploadFile, ) => {
         return ElMessageBox.confirm(
             `是否取消上传 ${uploadFile.name} ?`
         ).then(
@@ -104,14 +104,14 @@ export default function () {
         )
     }
 
-    const getBannerData = (response: any, file: UploadUserFile, fileList: UploadUserFile[]) => {
+    const getBannerData = (response: any) => {
 
         //将后端返回的图片路径保存到imgPath中
         form.BannerImg.push(response.data.imgPath)
         console.log("form.BannerImg:", form.BannerImg);
     };
 
-    const getDetailData = (response: any, file: UploadUserFile, fileList: UploadUserFile[]) => {
+    const getDetailData = (response: any) => {
         //将后端返回的图片路径保存到imgPath中
         form.detailImg.push(response.data.imgPath)
         console.log("form.detailImg:", form.detailImg);

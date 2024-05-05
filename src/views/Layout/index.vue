@@ -46,10 +46,6 @@
 
   }
 
-  .el-container {
-    height: 100vh;
-
-  }
 
 
 

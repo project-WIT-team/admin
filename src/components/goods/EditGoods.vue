@@ -96,7 +96,7 @@
     import { useRoute } from 'vue-router';
     import { useGoodsListStore } from '@/stores/goodsList';
     import useGoodsForm from '@/hooks/useGoodsForm';
-    const drawer = ref(false)
+
     const { form, editSubmit, removeBannerImg, removeDetailImg, beforeRemove, getBannerData, getDetailData } = useGoodsForm();
 
     const userStore = useUserStore();
@@ -133,10 +133,6 @@
         name: '',
         url: `http://8.149.133.241:5868${image.path}`
     })))
-
-
-
-
 </script>
 
 

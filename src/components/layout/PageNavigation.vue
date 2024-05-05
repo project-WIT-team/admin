@@ -21,7 +21,7 @@
                         <el-popconfirm title="确认退出吗?" @confirm="confirm()" confirm-button-text="确认"
                             cancel-button-text="取消">
                             <template #reference>
-                                <a href="javascript:;" class="no-underline"> <el-icon>
+                                <a href="javascript:" class="no-underline"> <el-icon>
                                         <Avatar />
                                     </el-icon> 退出登录</a>
                             </template>
@@ -31,7 +31,7 @@
                 <!-- 未登陆状态 -->
                 <template v-else>
                     <li>
-                        <a href="javascript:;" @click="$router.push('/login')">请先登录</a>
+                        <a href="javascript:" @click="$router.push('/login')">请先登录</a>
                     </li>
 
                 </template>
@@ -75,7 +75,7 @@
                     }
 
                     &:hover {
-                        color: $xtxColor;
+
                     }
                 }
 

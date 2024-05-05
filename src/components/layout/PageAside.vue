@@ -46,9 +46,6 @@
         margin-left: 5px
     }
 
-    .flex-grow {
-        flex-grow: 1;
-    }
 
     .item {
         padding: 0;

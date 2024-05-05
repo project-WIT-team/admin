@@ -44,7 +44,7 @@
 
                 ElMessage({ type: 'success', message: '登录成功' })
                 // 跳转首页
-                router.push({ path: '/' })
+                await router.push({ path: '/' })
 
             }
         })
@@ -113,7 +113,7 @@
         right: 0;
         height: 10px;
         background: inherit;
-        border-bottom: 0px solid #d2d2d2;
+        border-bottom: 0 solid #d2d2d2;
         border-radius: 4px;
     }
 
@@ -143,42 +143,16 @@
         height: 8px;
         background: #c4e17f;
         border-radius: 5px 5px 0 0;
-        background-image: -webkit-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
-        background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
-        background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+        background-image: -webkit-linear-gradient(to left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+        background-image: -moz-linear-gradient(to left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+        background-image: -o-linear-gradient(to left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
         background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
     }
 
     input {
         font-family: inherit;
         color: inherit;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
         box-sizing: border-box;
-    }
-
-    .sign-up-input {
-        width: 100%;
-        height: 50px;
-        margin-bottom: 25px;
-        padding: 0 15px 2px;
-        font-size: 17px;
-        background: white;
-        border: 2px solid #ebebeb;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 -2px #ebebeb;
-        box-shadow: inset 0 -2px #ebebeb;
-    }
-
-    .sign-up-input:focus {
-        border-color: #62c2e4;
-        outline: none;
-        -webkit-box-shadow: inset 0 -2px #62c2e4;
-        box-shadow: inset 0 -2px #62c2e4;
-    }
-
-    .lt-ie9 .sign-up-input {
-        line-height: 48px;
     }
 
     .sign-up-button {
