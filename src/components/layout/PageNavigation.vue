@@ -7,6 +7,7 @@
     const confirm = () => {
         userStore.clearUserInfo();
         router.push('/login');
+
     }
 </script>
 

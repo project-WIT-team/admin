@@ -16,7 +16,7 @@ export default defineConfig({
             scss: {
                 // 自动导入scss文件
                 additionalData: `
-      @use "@/styles/color.scss" as *;
+
     `,
             },
         },

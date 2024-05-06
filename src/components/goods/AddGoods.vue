@@ -15,7 +15,7 @@
         </el-form-item>
 
         <el-form-item label="库存量">
-            <el-input-number v-model="form.bank" :min="0" />
+            <el-input-number v-model="form.bank" :min="1" />
         </el-form-item>
 
         <el-form-item label="显示位置">
@@ -74,7 +74,6 @@
 
 <script lang="ts" setup>
     import { ref } from 'vue'
-
     import type { UploadUserFile } from 'element-plus'
     import { UploadFilled } from '@element-plus/icons-vue'
     import httpIns from '@/api/http';

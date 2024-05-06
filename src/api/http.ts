@@ -23,7 +23,6 @@ httpIns.interceptors.request.use(
         if (userStore.userInfo) {
             config.headers.Authorization = userStore.userInfo.token
         }
-
         return config
     },
 
@@ -41,8 +40,8 @@ httpIns.interceptors.response.use(
                 type: "error",
                 message: "token失效",
             })
-            const userStore = useUserStore()
-            userStore.clearUserInfo()
+            const { clearUserInfo } = useUserStore()
+            clearUserInfo()
             router.push("/login")
 
         }
@@ -64,5 +63,7 @@ httpIns.interceptors.response.use(
         return Promise.reject(e)
     }
 )
+
+//FIXME token失效仍然能够接受数据
 
 export default httpIns

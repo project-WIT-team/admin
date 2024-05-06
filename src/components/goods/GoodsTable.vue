@@ -13,7 +13,6 @@
                 </template>
             </el-table-column>
             <el-table-column prop="price" label="价格" sortable width="80" />
-
             <el-table-column prop="bank" label="库存" sortable width="80" />
             <el-table-column prop="salesVolume" label="销量" sortable width="80" />
             <el-table-column prop="type" label="分类" sortable width="100" />
@@ -82,9 +81,7 @@
     import { ElNotification } from 'element-plus'
     import { onMounted } from 'vue';
 
-
     const goodsStore = useGoodsListStore()
-
 
     //分页功能
     let page = ref(1)//当前页
@@ -205,11 +202,6 @@
         await goodsStore.getGoodsData();
         getTableData();
     });
-
-
-
-
-
 
 </script>
 

@@ -35,7 +35,7 @@
   .main {
     float: right;
     width: 90%;
-
+    /* padding-bottom: 100px; */
     padding: 0 50px 100px 50px;
 
     display: flex;

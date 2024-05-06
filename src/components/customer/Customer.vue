@@ -51,13 +51,14 @@
     let page = ref(1)//当前页
     let pageSize = ref(12)//每页显示的数目
     let totalData = ref(1)//数据总数
-    let currentTableData = ref();//一面的数据
+    let currentTableData = ref(0);//一面的数据
     //获取表格数据,自动分页
     function getTableData() {
         currentTableData.value = customers.slice((page.value - 1) * pageSize.value, page.value * pageSize.value)
         totalData.value = customers.length
         console.log("当前页数据信息:", currentTableData.value);
     }
+
 
     function sizeChange(value: number) {
         pageSize.value = value

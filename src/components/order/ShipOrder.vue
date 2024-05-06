@@ -43,7 +43,6 @@
             <!-- 编辑 -->
             <el-table-column prop="" label="">
                 <template #="scope">
-                    <!-- <el-button v-if="scope.row.status === 2" @click="editOrder(scope.row.id)" -->
                     <el-button v-if="scope.row.status === 2"
                         @click="$router.push({ name: '编辑发货信息', query: { id: scope.row.id } })"
                         type="primary">发货</el-button>
@@ -62,19 +61,11 @@
     import { useOrderStore } from '@/stores/order';
     import { ref } from 'vue';
     import { onMounted } from 'vue';
-    import {
-        Check,
-        Delete,
-        Edit,
-        Message,
-        Search,
-        Star,
-    } from '@element-plus/icons-vue'
     const { orderToShip, getOrderData } = useOrderStore();
 
     const NumberToShip = orderToShip.length;
-    console.log("待发货订单:", orderToShip);
-    console.log("待发货商品数量:", NumberToShip);
+    console.table("待发货订单:", orderToShip);
+
     //分页功能
     let page = ref(1)//当前页
     let pageSize = ref(10)//每页显示的数目
@@ -97,15 +88,6 @@
         page.value = value
         getTableData()
     }
-
-
-
-
-    // 抽屉
-    import type { DrawerProps } from 'element-plus'
-
-
-    const direction = ref<DrawerProps['direction']>('ttb')
 
 
     onMounted(async () => {

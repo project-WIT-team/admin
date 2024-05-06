@@ -1,5 +1,4 @@
 import httpIns from "@/api/http"
-
 import { defineStore } from "pinia"
 import { ref } from "vue"
 
@@ -14,7 +13,7 @@ export const useGoodsListStore = defineStore(
                     data: { goods },
                 },
             } = await httpIns.get("/getGoods")
-            console.log("success get goods api:", goods)
+            console.table(goods)
 
             goodsList.value = goods
         }

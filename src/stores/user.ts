@@ -1,6 +1,3 @@
-// 管理商家数据
-// 1.token
-
 import { defineStore } from "pinia"
 import { ref } from "vue"
 import { loginAPI } from "@/api/user"

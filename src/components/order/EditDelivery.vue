@@ -52,6 +52,7 @@
                     type: 'success',
                 })
                 router.push('/shipOrder')
+                location.reload()
             } else {
                 ElMessage({
                     message: '发货失败！',

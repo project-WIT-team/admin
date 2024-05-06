@@ -91,8 +91,6 @@ export default function () {
         console.log("removed！the rest detailImg:", form.detailImg);
     }
 
-
-
     const beforeRemove: UploadProps['beforeRemove'] = (uploadFile,) => {
         return ElMessageBox.confirm(
             `是否取消上传 ${uploadFile.name} ?`

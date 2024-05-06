@@ -17,7 +17,6 @@
             <el-table-column prop="payTime" label="支付时间" width="110" />
             <el-table-column prop="num" label="数量" sortable width="80" />
             <el-table-column prop="uid" label="用户id" width="110" />
-
             <el-table-column prop="addr" label="收货信息" width="150">
                 <template #default="scope">
                     <el-tooltip class="item" effect="dark" :content="scope.row.addr" placement="top">
@@ -26,8 +25,6 @@
                     </el-tooltip>
                 </template>
             </el-table-column>
-
-            <!-- <el-table-column prop="addr" label="收货信息" width="110" /> -->
             <el-table-column prop="" label="图片" width="120">
                 <template #="scope">
                     <el-image :src="`http://8.149.133.241:5868${scope.row.img}`" fit="cover"></el-image>
@@ -46,6 +43,7 @@
             <!-- 删除 -->
             <el-table-column label="" width="90">
                 <template #="scope">
+
                     <el-button v-if="scope.row.status != 44" @click="deleteOrderById(scope.row.id)" type="danger"
                         :icon="Delete" circle />
                 </template>
@@ -68,12 +66,7 @@
     import httpIns from '@/api/http';
     import qs from 'qs'
     import {
-        Check,
         Delete,
-        Edit,
-        Message,
-        Search,
-        Star,
     } from '@element-plus/icons-vue'
     const { orders, getOrderData } = useOrderStore();
 
@@ -133,13 +126,11 @@
         getTableData()
     }
 
-
-
     onMounted(async () => {
         await getOrderData();
         getTableData();
     });
-
+    //TODO 订单销量统计
 
 </script>
 
