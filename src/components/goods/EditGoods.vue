@@ -1,5 +1,4 @@
 <template>
-
     <h2 class="title">编辑商品</h2>
     <el-form :model="form" label-width="auto" enctype="multipart/form-data" style="max-width: 600px" scroll-to-error>
         <el-form-item label="商品id">

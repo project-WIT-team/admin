@@ -112,7 +112,7 @@
     //分页功能
     let page = ref(1)//当前页
     let pageSize = ref(10)//每页显示的数目
-    let pageCount= ref(7)//分页的最大按钮数
+    let pageCount = ref(7)//分页的最大按钮数
     let totalData = ref(1)//数据总数
     let currentTableData = ref();//一面的数据
     //获取表格数据,自动分页
@@ -154,6 +154,11 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+
+    .el-container {
+        height: 100vh;
+
     }
 
 </style>

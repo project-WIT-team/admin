@@ -6,8 +6,6 @@ import httpIns from '@/api/http'
 import qs from 'qs'
 import { useRouter } from 'vue-router'
 
-
-
 export default function () {
     const form = reactive({
         id: 0,
@@ -17,7 +15,7 @@ export default function () {
         price: 1,
         cost: 1,
         bank: 1,
-        place: '0',
+        place: 0,
         BannerImg: [] as string[],
         detailImg: [] as string[],
     })
@@ -73,7 +71,7 @@ export default function () {
     }
 
 
-    const removeBannerImg: UploadProps['onRemove'] = (uploadFile, ) => {
+    const removeBannerImg: UploadProps['onRemove'] = (uploadFile,) => {
         const url = uploadFile.url?.replace(/http:\/\/8\.149\.133\.241:5868/, '') ?? '';
         const index = form.BannerImg.indexOf(url);
         if (index !== -1) {
@@ -83,7 +81,7 @@ export default function () {
         console.log("removed！the rest BannerImg:", form.BannerImg);
     }
 
-    const removeDetailImg: UploadProps['onRemove'] = (uploadFile, ) => {
+    const removeDetailImg: UploadProps['onRemove'] = (uploadFile,) => {
         const url = uploadFile.url?.replace(/http:\/\/8\.149\.133\.241:5868/, '') ?? '';
         const index = form.detailImg.indexOf(url);
         if (index !== -1) {
@@ -95,7 +93,7 @@ export default function () {
 
 
 
-    const beforeRemove: UploadProps['beforeRemove'] = (uploadFile, ) => {
+    const beforeRemove: UploadProps['beforeRemove'] = (uploadFile,) => {
         return ElMessageBox.confirm(
             `是否取消上传 ${uploadFile.name} ?`
         ).then(

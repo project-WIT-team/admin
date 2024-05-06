@@ -3,22 +3,18 @@
     <h2 class="title">添加商品</h2>
     <el-form :model="form" label-width="auto" enctype="multipart/form-data" style="max-width: 600px" scroll-to-error>
         <el-form-item label="商品主页标题">
-            <!-- <el-input v-model="form.title" /> -->
             <el-input v-model="form.title" maxlength="70" style="width: 300px" show-word-limit type="textarea" />
         </el-form-item>
 
         <el-form-item label="商品价格">
-            <!-- <el-input v-model="form.price" /> -->
             <el-input-number v-model="form.price" :min="0.01" />
         </el-form-item>
 
         <el-form-item label="商品成本">
-            <!-- <el-input v-model="form.cost" /> -->
             <el-input-number v-model="form.cost" :min="0.01" />
         </el-form-item>
 
         <el-form-item label="库存量">
-            <!-- <el-input v-model="form.bank" /> -->
             <el-input-number v-model="form.bank" :min="0" />
         </el-form-item>
 

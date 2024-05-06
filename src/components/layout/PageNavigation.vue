@@ -1,6 +1,7 @@
 <script lang="ts" setup>
     import { useUserStore } from '@/stores/user';
     import router from '@/router';
+    import {Avatar} from "@element-plus/icons-vue";
     const userStore = useUserStore();
 
     const confirm = () => {
