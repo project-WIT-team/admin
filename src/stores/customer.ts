@@ -14,7 +14,6 @@ export const useCustomerStore = defineStore(
 
             const res = await httpIns.get("/getUsers")
             customers.value = res.data.data.users
-            console.log("顾客数据：", customers.value)
         }
 
         return {

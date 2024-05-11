@@ -1,12 +1,15 @@
 <script lang="ts" setup>
     import { useUserStore } from '@/stores/user';
     import router from '@/router';
-    import {Avatar} from "@element-plus/icons-vue";
+    import { Avatar } from "@element-plus/icons-vue";
+    import { ElMessage } from 'element-plus'
     const userStore = useUserStore();
 
     const confirm = () => {
         userStore.clearUserInfo();
         router.push('/login');
+
+        ElMessage({ type: 'success', message: '退出登陆' })
 
     }
 </script>
@@ -76,9 +79,7 @@
 
                     }
 
-                    &:hover {
-
-                    }
+                    &:hover {}
                 }
 
                 ~li {

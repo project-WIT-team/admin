@@ -13,7 +13,7 @@ export const useGoodsListStore = defineStore(
                     data: { goods },
                 },
             } = await httpIns.get("/getGoods")
-            console.table(goods)
+
 
             goodsList.value = goods
         }
