@@ -12,8 +12,8 @@
 
 
 <script lang="ts" setup>
-  import PageAside from '@/components/layout/PageAside.vue';
-  import PageNavigation from '@/components/layout/PageNavigation.vue';
+  import PageAside from '@/views/Layout/PageAside.vue';
+  import PageNavigation from '@/views/Layout/PageNavigation.vue';
   import { useGoodsListStore } from '@/stores/goodsList';
   const goodsListStore = useGoodsListStore();
   goodsListStore.getGoodsData();
