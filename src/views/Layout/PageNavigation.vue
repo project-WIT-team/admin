@@ -8,7 +8,6 @@
     const confirm = () => {
         userStore.clearUserInfo();
         router.push('/login');
-
         ElMessage({ type: 'success', message: '退出登陆' })
 
     }
@@ -18,11 +17,9 @@
     <nav class="app-topnav">
         <div class="container">
             <ul>
-                <!-- 条件渲染,登陆状态 -->
+                <!-- 条件渲染:1.登陆状态 -->
                 <template v-if="userStore.userInfo">
-
                     <li class="no-bullet">
-
                         <el-popconfirm title="确认退出吗?" @confirm="confirm()" confirm-button-text="确认"
                             cancel-button-text="取消">
                             <template #reference>
@@ -33,7 +30,7 @@
                         </el-popconfirm>
                     </li>
                 </template>
-                <!-- 未登陆状态 -->
+                <!-- 2.未登陆状态 -->
                 <template v-else>
                     <li>
                         <a href="javascript:" @click="$router.push('/login')">请先登录</a>

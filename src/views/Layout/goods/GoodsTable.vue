@@ -34,13 +34,16 @@
                         :zoom-rate="1.2" fit="cover" preview-teleported></el-image>
                 </template>
             </el-table-column>
-            <!-- 下架 -->
-            <el-table-column label="" width="100px">
+            <!-- 上架/下架 -->
+            <el-table-column label="" width="160px">
                 <template #="scope">
-                    <el-button @click='uploadItemById(scope.row.id)' type="success" plain
-                        :disabled="scope.row.place != 44">上架</el-button>
-                    <el-button @click='hideItemById(scope.row.id)' type="danger" plain
-                        :disabled="scope.row.place == 44">下架</el-button>
+                    <div id="div">
+                        <el-button @click='uploadItemById(scope.row.id)' type="success" plain
+                            :disabled="scope.row.place != 44">上架</el-button>
+                        <el-button @click='hideItemById(scope.row.id)' type="danger" plain
+                            :disabled="scope.row.place == 44">下架</el-button>
+                    </div>
+
                 </template>
             </el-table-column>
             <!-- 删除 -->
@@ -206,7 +209,10 @@
 </script>
 
 <style lang="scss" scoped>
-
+    #div {
+        display: inline;
+        text-align: center;
+    }
 
     .pagination {
         display: flex;
